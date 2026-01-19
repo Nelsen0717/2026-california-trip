@@ -1,0 +1,509 @@
+{
+  "tripInfo": {
+    "name": "2026 美國加州家族旅遊",
+    "startDate": "2026-02-06",
+    "endDate": "2026-02-18",
+    "duration": "13天12夜",
+    "destination": "美國加州",
+    "mainCities": ["Los Angeles", "Anaheim", "San Diego", "Palm Springs", "Big Bear Lake"]
+  },
+  "travelers": {
+    "totalCount": 11,
+    "adults": 7,
+    "children": 4,
+    "families": [
+      {
+        "familyName": "陳家",
+        "carAssignment": "Tesla Model Y (Nelsen駕駛)",
+        "passengers": ["陳致瑋", "詹涵宇", "陳僾", "陳葴", "詹爸爸", "詹媽媽"],
+        "members": [
+          {
+            "name": "陳致瑋",
+            "englishName": "CHEN, CHIH-WEI",
+            "alias": "Nelsen",
+            "role": "爸爸/主駕駛",
+            "dob": "1988-07-17",
+            "passportNo": "360621890",
+            "passportExpiry": "2032-07-20",
+            "idNo": "A127224578",
+            "hasDriverLicense": true,
+            "needsInternationalLicense": true,
+            "needsESTA": true
+          },
+          {
+            "name": "詹涵宇",
+            "englishName": "CHAN, HAN-YU",
+            "alias": "小A",
+            "role": "媽媽/副駕駛",
+            "dob": "1988-12-16",
+            "passportNo": "367257763",
+            "passportExpiry": "2034-10-11",
+            "idNo": "F227066082",
+            "hasDriverLicense": true,
+            "needsInternationalLicense": true,
+            "needsESTA": true
+          },
+          {
+            "name": "陳僾",
+            "englishName": "CHEN, AI",
+            "role": "大女兒",
+            "age": 5,
+            "dob": "2020-06-06",
+            "passportNo": "360624530",
+            "passportExpiry": "2027-07-21",
+            "warning": "護照效期需注意，建議確認是否需提前換發",
+            "needsESTA": true
+          },
+          {
+            "name": "陳葴",
+            "englishName": "CHEN, ZHEN",
+            "role": "小女兒",
+            "age": 2,
+            "dob": "2023-05-25",
+            "passportNo": "366336687",
+            "passportExpiry": "2029-06-19",
+            "needsESTA": true,
+            "disneyFree": true
+          }
+        ]
+      },
+      {
+        "familyName": "盧家",
+        "carAssignment": "自行安排",
+        "estaStatus": "自行申請",
+        "members": [
+          { "name": "盧冠宇", "role": "爸爸" },
+          { "name": "小B", "note": "小A雙胞胎妹妹", "role": "媽媽" },
+          { "name": "盧毅", "role": "兒子" },
+          { "name": "盧禾", "role": "女兒" }
+        ]
+      },
+      {
+        "familyName": "長輩",
+        "carAssignment": "搭乘陳家Tesla",
+        "estaStatus": "自行申請",
+        "members": [
+          { "name": "詹爸爸", "role": "外公" },
+          { "name": "詹媽媽", "role": "外婆" },
+          { "name": "盧媽媽", "role": "盧家媽媽", "carAssignment": "搭乘盧家車" }
+        ]
+      }
+    ]
+  },
+  "flights": {
+    "bookingRef": "2025-12835369",
+    "pnr": "ETOL6M",
+    "airline": "中華航空",
+    "outbound": {
+      "flightNo": "CI24",
+      "date": "2026-02-06",
+      "departure": {
+        "airport": "TPE",
+        "terminal": "Terminal 2",
+        "time": "21:25"
+      },
+      "arrival": {
+        "airport": "ONT",
+        "terminal": "Terminal 1",
+        "time": "16:50"
+      },
+      "duration": "11h 25m",
+      "aircraft": "Boeing 777-300ER"
+    },
+    "return": {
+      "flightNo": "CI23",
+      "date": "2026-02-18",
+      "departure": {
+        "airport": "ONT",
+        "terminal": "Terminal 2",
+        "time": "22:50"
+      },
+      "arrival": {
+        "airport": "TPE",
+        "terminal": "Terminal 2",
+        "time": "05:30",
+        "arrivalDate": "2026-02-20"
+      },
+      "duration": "14h 40m",
+      "aircraft": "Boeing 777-300ER"
+    }
+  },
+  "itinerary": [
+    {
+      "date": "2026-02-06",
+      "day": 1,
+      "dayOfWeek": "五",
+      "title": "抵達加州",
+      "location": "Ontario",
+      "activities": [
+        { "time": "16:50", "activity": "抵達安大略機場 (ONT)" },
+        { "time": "17:30", "activity": "取車 - Tesla Model Y" },
+        { "time": "19:00", "activity": "Check-in 住宿，休息調時差" }
+      ],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-07",
+      "day": 2,
+      "dayOfWeek": "六",
+      "title": "洛杉磯探索日",
+      "location": "Los Angeles",
+      "activities": [
+        { "time": "09:00", "activity": "Santa Monica Pier 海邊散步" },
+        { "time": "11:00", "activity": "Venice Beach 威尼斯海灘" },
+        { "time": "13:00", "activity": "午餐 @ Superba (威尼斯)" },
+        { "time": "15:00", "activity": "The Grove 購物中心" },
+        { "time": "18:00", "activity": "Griffith Observatory 看夕陽" },
+        { "time": "20:00", "activity": "晚餐 @ Carousel 黎巴嫩料理" }
+      ],
+      "restaurants": [
+        { "name": "Superba", "type": "California Brunch", "location": "Venice", "note": "家庭友善，戶外座位" },
+        { "name": "Carousel", "type": "Lebanese", "location": "Hollywood/Glendale", "note": "家庭式餐點" }
+      ],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-08",
+      "day": 3,
+      "dayOfWeek": "日",
+      "title": "好萊塢 & Tesla Diner",
+      "location": "Hollywood",
+      "highlight": "Tesla Diner",
+      "activities": [
+        { "time": "09:00", "activity": "早餐 @ The Original Pancake House" },
+        { "time": "10:30", "activity": "Hollywood Walk of Fame" },
+        { "time": "12:30", "activity": "🚗 Tesla Diner 午餐體驗" },
+        { "time": "15:00", "activity": "Rodeo Drive 比佛利山莊" },
+        { "time": "17:30", "activity": "Getty Center 藝術博物館" },
+        { "time": "20:00", "activity": "晚餐 @ Grand Central Market" }
+      ],
+      "restaurants": [
+        { "name": "The Original Pancake House", "type": "Breakfast", "location": "Manhattan Beach" },
+        {
+          "name": "Tesla Diner",
+          "type": "American Diner",
+          "address": "7001 Santa Monica Blvd, Hollywood",
+          "hours": "24/7",
+          "features": ["太空飛碟造型", "66呎LED螢幕", "可用Tesla車內螢幕點餐", "Cybertruck造型餐盒"],
+          "menu": {
+            "burger": "$13.50",
+            "fries": "$4 (牛油薯條)",
+            "grilledCheese": "$9",
+            "tunaMelt": "$14"
+          },
+          "note": "2025年7月開幕，必訪打卡點"
+        },
+        { "name": "Grand Central Market", "type": "Food Hall", "location": "Downtown LA" }
+      ],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-09",
+      "day": 4,
+      "dayOfWeek": "一",
+      "title": "NBA 湖人 vs 雷霆",
+      "location": "Downtown LA",
+      "highlight": "NBA Game",
+      "activities": [
+        { "time": "10:00", "activity": "睡到自然醒，悠閒早午餐" },
+        { "time": "12:00", "activity": "LACMA 洛杉磯藝術博物館" },
+        { "time": "15:00", "activity": "Little Tokyo 日本城" },
+        { "time": "17:00", "activity": "早點晚餐 @ Brent's Deli" },
+        { "time": "19:00", "activity": "🏀 Lakers vs Thunder @ Crypto.com Arena" }
+      ],
+      "nbaGame": {
+        "teams": "Los Angeles Lakers vs Oklahoma City Thunder",
+        "venue": "Crypto.com Arena",
+        "address": "1111 S Figueroa St, Los Angeles, CA 90015",
+        "attendees": ["陳致瑋", "詹涵宇", "盧冠宇", "小B"],
+        "ticketCount": 4,
+        "ticketLink": "https://www.ticketmaster.com/los-angeles-lakers-vs-oklahoma-city-los-angeles-california-02-09-2026/event/2C00630818680AEC",
+        "childcare": "長輩幫忙照顧小朋友"
+      },
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-10",
+      "day": 5,
+      "dayOfWeek": "二",
+      "title": "迪士尼樂園",
+      "location": "Anaheim",
+      "highlight": "Disneyland",
+      "activities": [
+        { "time": "07:00", "activity": "早餐 @ GCH Craftsman Grill" },
+        { "time": "08:00", "activity": "入園 - Disneyland Park" },
+        { "time": "12:00", "activity": "午餐 @ Carnation Café" },
+        { "time": "14:00", "activity": "下午場設施 & Rider Switch" },
+        { "time": "18:00", "activity": "晚餐 @ Blue Bayou Restaurant" },
+        { "time": "21:00", "activity": "煙火表演 🎆" }
+      ],
+      "disney": {
+        "park": "Disneyland Park",
+        "attendees": "全員11人",
+        "freeEntry": ["陳葴 (2歲以下免費)"],
+        "tips": ["農曆新年慶典中 (1/23-2/22)", "Rider Switch 適合有小小孩家庭", "記得帶推車"],
+        "restaurants": [
+          { "name": "GCH Craftsman Grill", "meal": "早餐", "note": "6:45am開門" },
+          { "name": "Carnation Café", "meal": "午餐", "note": "Main Street上最棒的用餐體驗" },
+          { "name": "Blue Bayou Restaurant", "meal": "晚餐", "note": "加勒比海盜旁的氛圍餐廳" }
+        ]
+      },
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-11",
+      "day": 6,
+      "dayOfWeek": "三",
+      "title": "前往聖地牙哥",
+      "location": "San Diego",
+      "activities": [
+        { "time": "08:00", "activity": "退房，開車前往 San Diego (2hr)" },
+        { "time": "10:30", "activity": "Check-in 住宿" },
+        { "time": "11:30", "activity": "午餐 @ Richard Walker's Pancake House" },
+        { "time": "13:00", "activity": "USS Midway 航空母艦博物館" },
+        { "time": "16:00", "activity": "Seaport Village 散步" },
+        { "time": "18:30", "activity": "晚餐 @ Buon Appetito (Little Italy)" }
+      ],
+      "restaurants": [
+        { "name": "Richard Walker's Pancake House", "type": "Breakfast", "location": "Gaslamp", "note": "超棒鬆餅，有兒童菜單" },
+        { "name": "Buon Appetito", "type": "Italian", "location": "Little Italy", "note": "得獎義大利菜" }
+      ],
+      "tips": ["2月博物館月 - USS Midway 半價！"],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-12",
+      "day": 7,
+      "dayOfWeek": "四",
+      "title": "聖地牙哥深度遊",
+      "location": "San Diego / La Jolla",
+      "activities": [
+        { "time": "08:00", "activity": "早餐 @ The Cottage (La Jolla)" },
+        { "time": "10:00", "activity": "San Diego Zoo 動物園" },
+        { "time": "13:00", "activity": "午餐 @ Burger Lounge" },
+        { "time": "15:00", "activity": "La Jolla Cove 海豹岩" },
+        { "time": "17:00", "activity": "Birch Aquarium 水族館" },
+        { "time": "19:00", "activity": "晚餐 @ Duke's La Jolla (海景)" }
+      ],
+      "restaurants": [
+        { "name": "The Cottage", "type": "California", "location": "La Jolla", "note": "得獎海邊小屋餐廳" },
+        { "name": "Burger Lounge", "type": "Burgers", "note": "有機草飼牛肉，兒童套餐含冰淇淋" },
+        { "name": "Duke's La Jolla", "type": "Hawaiian", "note": "絕美海景，兒童菜單有遊戲" }
+      ],
+      "tips": ["賞鯨季節中！", "海豹育幼季，保持50呎距離"],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-13",
+      "day": 8,
+      "dayOfWeek": "五",
+      "title": "前往棕櫚泉",
+      "location": "Palm Springs",
+      "activities": [
+        { "time": "08:00", "activity": "早餐後出發前往 Palm Springs (2.5hr)" },
+        { "time": "11:00", "activity": "Palm Springs Aerial Tramway 纜車" },
+        { "time": "13:00", "activity": "山頂午餐 (可能有雪!)" },
+        { "time": "15:30", "activity": "Check-in 住宿 & 休息" },
+        { "time": "17:00", "activity": "Downtown Palm Springs 散步" },
+        { "time": "19:00", "activity": "晚餐 @ Las Casuelas Terraza" }
+      ],
+      "restaurants": [
+        { "name": "Las Casuelas Terraza", "type": "Mexican", "location": "Palm Canyon Dr", "note": "戶外座位，價格實惠" }
+      ],
+      "tips": ["Aerial Tramway 山頂比山下低30-40°F", "2月山頂可能有雪!"],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-14",
+      "day": 9,
+      "dayOfWeek": "六",
+      "title": "棕櫚泉 · 情人節",
+      "location": "Palm Springs",
+      "highlight": "Valentine's Day",
+      "activities": [
+        { "time": "09:00", "activity": "早餐 @ Elmer's Palm Springs" },
+        { "time": "10:30", "activity": "Living Desert Zoo & Gardens" },
+        { "time": "13:00", "activity": "午餐 @ LuLu California Bistro" },
+        { "time": "15:00", "activity": "Children's Discovery Museum" },
+        { "time": "17:00", "activity": "Indian Canyons 健行 (選)" },
+        { "time": "19:30", "activity": "💕 情人節晚餐 @ Eight4Nine" }
+      ],
+      "restaurants": [
+        { "name": "Elmer's Palm Springs", "type": "Diner", "note": "經典早餐，德式鬆餅招牌" },
+        { "name": "LuLu California Bistro", "type": "California", "note": "OpenTable 百大餐廳" },
+        { "name": "Eight4Nine", "type": "American", "note": "情人節特別推薦" }
+      ],
+      "tips": ["Living Desert Zoo 可餵長頸鹿", "澳洲區可近距離接觸袋鼠"],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-15",
+      "day": 10,
+      "dayOfWeek": "日",
+      "title": "前往大熊湖",
+      "location": "Big Bear Lake",
+      "activities": [
+        { "time": "08:00", "activity": "早餐後退房，開車前往 Big Bear (2hr)" },
+        { "time": "11:00", "activity": "Check-in 小木屋" },
+        { "time": "12:00", "activity": "午餐 @ Teddy Bear Restaurant" },
+        { "time": "14:00", "activity": "Big Bear Village 漫步購物" },
+        { "time": "16:00", "activity": "雪地玩耍 / 堆雪人" },
+        { "time": "19:00", "activity": "晚餐 @ Peppercorn Grille" }
+      ],
+      "restaurants": [
+        { "name": "Teddy Bear Restaurant", "type": "American", "note": "家庭式餐廳，招牌雞肉派" },
+        { "name": "Peppercorn Grille", "type": "Fine Dining", "note": "山區高級餐廳" }
+      ],
+      "tips": ["山路可能需要雪鏈", "海拔6,750呎，多喝水預防高山症"],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-16",
+      "day": 11,
+      "dayOfWeek": "一",
+      "title": "大熊湖雪地日",
+      "location": "Big Bear Lake",
+      "highlight": "Snow Activities",
+      "activities": [
+        { "time": "08:00", "activity": "早餐 @ Grizzly Manor Café" },
+        { "time": "10:00", "activity": "Snow Summit 滑雪/滑雪板" },
+        { "time": "12:00", "activity": "山上午餐" },
+        { "time": "14:00", "activity": "Grizzly Ridge Tube Park 雪盆" },
+        { "time": "17:00", "activity": "回住宿休息" },
+        { "time": "19:00", "activity": "晚餐 @ Oakside Restaurant" },
+        { "time": "21:00", "activity": "🌟 Glow Tubing 夜間雪盆 (選)" }
+      ],
+      "restaurants": [
+        { "name": "Grizzly Manor Café", "type": "Breakfast", "note": "經典早餐店，份量超大" },
+        { "name": "Oakside Restaurant", "type": "American", "note": "週末有現場音樂" }
+      ],
+      "tips": ["雪盆建議線上預約", "Glow Tubing 夜間有燈光音樂"],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-17",
+      "day": 12,
+      "dayOfWeek": "二",
+      "title": "大熊湖最後一天",
+      "location": "Big Bear Lake",
+      "activities": [
+        { "time": "09:00", "activity": "睡到自然醒，悠閒早餐" },
+        { "time": "10:30", "activity": "Big Bear Alpine Zoo" },
+        { "time": "12:30", "activity": "午餐 @ Saucy Mama's Pizza" },
+        { "time": "14:00", "activity": "Bowling Barn 保齡球/溜冰" },
+        { "time": "16:00", "activity": "North Pole Sweets 甜點" },
+        { "time": "18:30", "activity": "最後晚餐 @ The Pines Lakefront" }
+      ],
+      "restaurants": [
+        { "name": "Saucy Mama's Pizza", "type": "Pizza", "note": "Village內人氣披薩店" },
+        { "name": "The Pines Lakefront", "type": "Fine Dining", "note": "1920年代經典湖景餐廳" }
+      ],
+      "accommodation": "TBD"
+    },
+    {
+      "date": "2026-02-18",
+      "day": 13,
+      "dayOfWeek": "三",
+      "title": "回程",
+      "location": "Ontario",
+      "activities": [
+        { "time": "09:00", "activity": "退房，整理行李" },
+        { "time": "10:00", "activity": "開車返回 Ontario (1.5hr)" },
+        { "time": "12:00", "activity": "Ontario Mills Outlet 最後購物" },
+        { "time": "15:00", "activity": "午餐 & 整理" },
+        { "time": "18:00", "activity": "還車" },
+        { "time": "19:00", "activity": "抵達機場辦理登機" },
+        { "time": "22:50", "activity": "✈️ CI23 起飛返台" }
+      ],
+      "tips": ["國際航班提前3小時到", "預留還車時間"]
+    }
+  ],
+  "carRental": {
+    "vehicle": "Tesla Model Y",
+    "preference": "7座版本",
+    "reason": "台灣有開Tesla經驗，需載6人 (陳家4人+詹爸媽)",
+    "rentalPeriod": {
+      "pickup": "2026-02-06 17:00",
+      "return": "2026-02-18 18:00",
+      "days": 12
+    },
+    "pickupLocation": "Ontario International Airport (ONT)",
+    "options": [
+      {
+        "provider": "Turo",
+        "recommended": true,
+        "vehicle": "Tesla Model Y Long Range",
+        "pricePerDay": "$93-94",
+        "totalEstimate": "$1,116-1,128",
+        "features": ["當地車主直租", "ONT機場可接送", "330 miles 續航", "兒童座椅可租借", "長租折扣"],
+        "website": "https://turo.com/us/en/car-rental/united-states/ontario-ca/tesla",
+        "note": "需確認7座版本可用性"
+      },
+      {
+        "provider": "Hertz",
+        "vehicle": "Tesla Model Y",
+        "pricePerDay": "$52-71",
+        "totalEstimate": "$624-852",
+        "features": ["官方租車公司", "ONT機場據點", "310 miles 續航", "24/7客服"],
+        "website": "https://www.hertz.com/us/en/vehicles/tesla/model-y",
+        "phone": "909-937-8877",
+        "note": "需確認7座版本"
+      },
+      {
+        "provider": "SIXT",
+        "vehicle": "Tesla Model Y",
+        "pricePerDay": "$41+",
+        "features": ["國際租車公司", "App預訂方便"],
+        "website": "https://www.sixt.com/fleet/tesla-rental/model-y/",
+        "note": "需確認ONT據點"
+      }
+    ]
+  },
+  "tickets": {
+    "nba": {
+      "event": "Los Angeles Lakers vs Oklahoma City Thunder",
+      "date": "2026-02-09",
+      "venue": "Crypto.com Arena",
+      "ticketsNeeded": 4,
+      "attendees": ["陳致瑋", "詹涵宇", "盧冠宇", "小B"],
+      "ticketLink": "https://www.ticketmaster.com/los-angeles-lakers-vs-oklahoma-city-los-angeles-california-02-09-2026/event/2C00630818680AEC"
+    },
+    "disneyland": {
+      "date": "2026-02-10",
+      "venue": "Disneyland Park, Anaheim",
+      "attendees": "全員11人",
+      "ticketsNeeded": {
+        "adults": 7,
+        "children3to9": 3,
+        "under3Free": 1
+      },
+      "freeEntry": ["陳葴 (2歲)"],
+      "website": "https://disneyland.disney.go.com/tickets"
+    }
+  },
+  "preparations": {
+    "esta": {
+      "required": true,
+      "cost": "$40 USD",
+      "applicants": ["陳致瑋", "詹涵宇", "陳僾", "陳葴"],
+      "note": "盧家和長輩自行申請",
+      "website": "https://esta.cbp.dhs.gov/"
+    },
+    "internationalDriverLicense": {
+      "cost": "NT$250",
+      "applicants": [
+        { "name": "陳致瑋", "licenseNo": "A127224578" },
+        { "name": "詹涵宇", "licenseNo": "F227066082" }
+      ],
+      "applyAt": "監理站親辦"
+    }
+  },
+  "accommodation": {
+    "status": "待更新",
+    "note": "妹夫規劃中，晚上會提供資訊",
+    "placeholder": true
+  },
+  "notionPageUrl": "https://www.notion.so/2026-2eda9189f07d81119499efaa0731b910",
+  "websiteUrl": "index.html",
+  "lastUpdated": "2026-01-19T14:00:00+08:00"
+}

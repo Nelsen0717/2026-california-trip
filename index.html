@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>California 2026 | 陳家 & 盧家的加州之旅</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --cream: #FAF7F2;
+            --warm-white: #FFFEF9;
+            --sand: #E8DFD4;
+            --terracotta: #C4A484;
+            --terracotta-dark: #A67C52;
+            --olive: #7D8471;
+            --olive-dark: #5C6350;
+            --charcoal: #3D3D3D;
+            --soft-black: #2C2C2C;
+            --rose: #D4A5A5;
+            --deep-brown: #4A3728;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans TC', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.7;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== QUICK NAV (Sticky Bottom on Mobile) ===== */
+        .quick-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            display: none;
+            padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+        }
+
+        .quick-nav-inner {
+            display: flex;
+            justify-content: space-around;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .quick-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--olive);
+            font-size: 10px;
+            padding: 6px 12px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .quick-nav a.active,
+        .quick-nav a:hover {
+            color: var(--terracotta-dark);
+            background: rgba(196, 164, 132, 0.1);
+        }
+
+        .quick-nav .nav-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .quick-nav { display: block; }
+            body { padding-bottom: 70px; }
+        }
+
+        /* ===== TOP NAV ===== */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .top-nav.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .top-nav.scrolled .top-nav-logo,
+        .top-nav.scrolled .top-nav-links a {
+            color: var(--soft-black);
+        }
+
+        .top-nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .top-nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .top-nav-links a {
+            font-size: 0.85rem;
+            color: white;
+            text-decoration: none;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+            opacity: 0.9;
+            transition: all 0.3s;
+        }
+
+        .top-nav-links a:hover { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .top-nav-links { display: none; }
+        }
+
+        /* ===== HERO (Full Impact with Overlay) ===== */
+        .hero {
+            height: 85vh;
+            min-height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 100%),
+                url('https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?w=1920&q=80') center/cover;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title span {
+            color: var(--terracotta);
+            text-shadow: 0 4px 30px rgba(196,164,132,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 35px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: white;
+            font-size: 0.75rem;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        .hero-scroll span {
+            display: block;
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .section { padding: 50px 16px; }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--soft-black);
+        }
+
+        /* ===== ITINERARY (Improved Cards) ===== */
+        .itinerary-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--charcoal);
+            border: 2px solid var(--sand);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover,
+        .control-btn.active {
+            border-color: var(--terracotta);
+            background: var(--terracotta);
+            color: white;
+        }
+
+        .itinerary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .day-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            border-color: var(--terracotta);
+        }
+
+        .day-card.expanded {
+            border-color: var(--terracotta);
+        }
+
+        .day-card-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, rgba(196,164,132,0.08) 0%, rgba(212,165,165,0.05) 100%);
+        }
+
+        .day-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--terracotta), var(--rose));
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .day-info { flex: 1; }
+        .day-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--soft-black);
+            margin-bottom: 3px;
+        }
+
+        .day-info span {
+            font-size: 0.8rem;
+            color: var(--olive);
+        }
+
+        .day-highlight {
+            background: var(--terracotta);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .day-card-body {
+            padding: 0 20px 20px;
+            display: none;
+        }
+
+        .day-card.expanded .day-card-body {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SPOT CARDS (New!) ===== */
+        .spot-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spot-card {
+            background: var(--cream);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .spot-card:hover {
+            background: var(--sand);
+            transform: translateX(4px);
+        }
+
+        .spot-time {
+            background: white;
+            color: var(--terracotta-dark);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .spot-content { flex: 1; }
+
+        .spot-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--soft-black);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .spot-name .spot-icon {
+            font-size: 1rem;
+        }
+
+        .spot-desc {
+            font-size: 0.8rem;
+            color: var(--olive-dark);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .spot-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .spot-link {
+            font-size: 0.7rem;
+            color: var(--terracotta-dark);
+            text-decoration: none;
+            padding: 3px 8px;
+            background: white;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .spot-link:hover {
+            background: var(--terracotta);
+            color: white;
+        }
+
+        .day-tips {
+            background: linear-gradient(135deg, rgba(196,164,132,0.15), rgba(212,165,165,0.1));
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--terracotta);
+        }
+
+        .day-tips strong { color: var(--terracotta-dark); }
+
+        /* ===== MAP SECTION (Enhanced) ===== */
+        #map-section {
+            background: linear-gradient(180deg, var(--soft-black) 0%, #1a1a1a 100%);
+            padding: 60px 20px;
+        }
+
+        #map-section .section-header {
+            color: white;
+        }
+
+        #map-section .section-tag { color: var(--terracotta); }
+        #map-section .section-title { color: white; }
+
+        .map-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .map-day-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .day-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.7);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .day-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .day-btn.active {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+            color: white;
+        }
+
+        .map-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .map-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        #trip-map {
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            #trip-map { height: 350px; }
+        }
+
+        .map-sidebar {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .map-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .map-sidebar::-webkit-scrollbar-thumb {
+            background: var(--terracotta);
+            border-radius: 3px;
+        }
+
+        .sidebar-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .route-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .route-item {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .route-item:hover,
+        .route-item.active {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--terracotta);
+        }
+
+        .route-item-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .route-icon {
+            font-size: 1.2rem;
+        }
+
+        .route-info {
+            flex: 1;
+        }
+
+        .route-name {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .route-time {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+        }
+
+        .route-arrow {
+            color: var(--terracotta);
+            font-size: 0.8rem;
+        }
+
+        /* ===== INFO CARDS GRID ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .info-card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--terracotta), var(--rose));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .info-card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--soft-black);
+        }
+
+        .info-card-subtitle {
+            font-size: 0.8rem;
+            color: var(--olive);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--sand);
+            font-size: 0.9rem;
+        }
+
+        .info-item:last-child { border-bottom: none; }
+
+        .info-label { color: var(--olive-dark); }
+        .info-value { font-weight: 500; color: var(--soft-black); }
+
+        /* ===== RENTAL CARDS ===== */
+        .rental-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .rental-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .rental-card:hover {
+            border-color: var(--terracotta);
+            transform: translateY(-4px);
+        }
+
+        .rental-card.recommended {
+            border-color: var(--terracotta);
+        }
+
+        .rental-card.recommended::before {
+            content: '推薦';
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .rental-provider {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--soft-black);
+            margin-bottom: 8px;
+        }
+
+        .rental-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--terracotta-dark);
+            margin-bottom: 18px;
+        }
+
+        .rental-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--olive);
+        }
+
+        .rental-features {
+            list-style: none;
+            margin-bottom: 22px;
+        }
+
+        .rental-features li {
+            padding: 8px 0;
+            font-size: 0.88rem;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rental-features li::before {
+            content: '✓';
+            color: var(--terracotta);
+            font-weight: bold;
+        }
+
+        .rental-btn {
+            display: block;
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .rental-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(196, 164, 132, 0.4);
+        }
+
+        .rental-btn.secondary {
+            background: var(--sand);
+            color: var(--soft-black);
+        }
+
+        /* ===== CHECKLIST ===== */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .checklist-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+        }
+
+        .checklist-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .checklist-icon {
+            font-size: 1.6rem;
+        }
+
+        .checklist-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--sand);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: rgba(196,164,132,0.05);
+            margin: 0 -10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px;
+        }
+
+        .checklist-item:last-child { border-bottom: none; }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--terracotta);
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .checkbox.checked {
+            background: linear-gradient(135deg, var(--terracotta), var(--rose));
+            border-color: var(--terracotta);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .checklist-item.done .item-text strong {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .item-text strong {
+            display: block;
+            font-size: 0.92rem;
+            margin-bottom: 3px;
+        }
+
+        .item-text small {
+            font-size: 0.8rem;
+            color: var(--olive);
+        }
+
+        .item-text a {
+            color: var(--terracotta-dark);
+        }
+
+        /* ===== MEMBERS ===== */
+        .members-section {
+            background: linear-gradient(135deg, var(--sand) 0%, var(--cream) 100%);
+        }
+
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .family-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+        }
+
+        .family-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 22px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .member {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+        }
+
+        .member-avatar {
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, var(--terracotta), var(--rose));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .member-info h4 {
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
+        .member-info p {
+            font-size: 0.82rem;
+            color: var(--olive);
+        }
+
+        .member-warning {
+            background: #FFF3CD;
+            color: #856404;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: auto;
+            font-weight: 500;
+        }
+
+        /* ===== FLIGHT CARDS ===== */
+        .flight-section {
+            background: linear-gradient(180deg, var(--soft-black) 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .flight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .flight-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 28px;
+            backdrop-filter: blur(10px);
+        }
+
+        .flight-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--terracotta);
+            margin-bottom: 22px;
+        }
+
+        .flight-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .flight-point { text-align: center; }
+        .flight-code {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .flight-time {
+            font-size: 1.3rem;
+            color: var(--terracotta);
+            margin: 6px 0;
+        }
+        .flight-city {
+            font-size: 0.78rem;
+            opacity: 0.6;
+        }
+
+        .flight-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
+            margin: 0 25px;
+            position: relative;
+        }
+
+        .flight-line::after {
+            content: '✈';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.1rem;
+        }
+
+        .flight-details {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .flight-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 0.8rem;
+        }
+
+        .booking-info {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.88rem;
+            opacity: 0.7;
+        }
+
+        /* ===== ACCOMMODATION PLACEHOLDER ===== */
+        .placeholder-card {
+            background: white;
+            border-radius: 20px;
+            padding: 70px 30px;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+        }
+
+        .placeholder-icon {
+            font-size: 3.5rem;
+            margin-bottom: 18px;
+        }
+
+        .placeholder-text {
+            color: var(--olive-dark);
+            font-size: 1.15rem;
+        }
+
+        .placeholder-sub {
+            color: var(--terracotta);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--soft-black);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--terracotta);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--rose);
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* ===== ANIMATION ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== LEAFLET POPUP CUSTOMIZATION ===== */
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .leaflet-popup-content {
+            margin: 12px 15px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .popup-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--soft-black);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .popup-desc {
+            font-size: 0.85rem;
+            color: var(--olive-dark);
+            margin-bottom: 8px;
+        }
+
+        .popup-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .popup-link {
+            font-size: 0.75rem;
+            color: white;
+            background: var(--terracotta);
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .popup-link:hover {
+            background: var(--terracotta-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav" id="topNav">
+        <div class="top-nav-logo">CA '26</div>
+        <ul class="top-nav-links">
+            <li><a href="#itinerary">行程</a></li>
+            <li><a href="#members">成員</a></li>
+            <li><a href="#flights">航班</a></li>
+            <li><a href="#rental">租車</a></li>
+            <li><a href="#checklist">準備清單</a></li>
+            <li><a href="#map-section">地圖</a></li>
+        </ul>
+    </nav>
+
+    <!-- Mobile Quick Nav -->
+    <nav class="quick-nav">
+        <div class="quick-nav-inner">
+            <a href="#itinerary" class="active">
+                <span class="nav-icon">📅</span>
+                <span>行程</span>
+            </a>
+            <a href="#map-section">
+                <span class="nav-icon">🗺️</span>
+                <span>地圖</span>
+            </a>
+            <a href="#rental">
+                <span class="nav-icon">🚗</span>
+                <span>租車</span>
+            </a>
+            <a href="#checklist">
+                <span class="nav-icon">✅</span>
+                <span>準備</span>
+            </a>
+            <a href="#members">
+                <span class="nav-icon">👨‍👩‍👧</span>
+                <span>成員</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="hero-badge">FAMILY ADVENTURE</span>
+            <h1 class="hero-title">California <span>2026</span></h1>
+            <p class="hero-subtitle">February 6 — 18, 2026</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">13</div>
+                    <div class="stat-label">DAYS</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">11</div>
+                    <div class="stat-label">TRAVELERS</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">5</div>
+                    <div class="stat-label">CITIES</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            向下滑動探索
+            <span>↓</span>
+        </div>
+    </section>
+
+    <!-- Itinerary -->
+    <section class="section" id="itinerary">
+        <div class="section-header">
+            <p class="section-tag">Itinerary</p>
+            <h2 class="section-title">行程總覽</h2>
+        </div>
+
+        <div class="itinerary-controls">
+            <button class="control-btn" id="expandAll">
+                <span>📋</span> 展開全部
+            </button>
+            <button class="control-btn" id="collapseAll">
+                <span>📁</span> 收合全部
+            </button>
+        </div>
+
+        <div class="itinerary-grid" id="itineraryGrid">
+            <!-- Day cards will be generated by JS -->
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map-section">
+        <div class="section-header">
+            <p class="section-tag">Interactive Map</p>
+            <h2 class="section-title">行程地圖</h2>
+        </div>
+        <div class="map-container">
+            <div class="map-day-selector" id="mapDaySelector">
+                <button class="day-btn active" data-day="all">全程</button>
+            </div>
+            <div class="map-wrapper">
+                <div id="trip-map"></div>
+                <div class="map-sidebar" id="mapSidebar">
+                    <div class="sidebar-title">📍 今日路線</div>
+                    <div class="route-list" id="routeList">
+                        <!-- Route items will be generated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Section -->
+    <section class="section" id="rental">
+        <div class="section-header">
+            <p class="section-tag">Transportation</p>
+            <h2 class="section-title">租車方案</h2>
+        </div>
+
+        <p style="text-align: center; margin-bottom: 35px; color: var(--olive-dark);">
+            Tesla Model Y · 2/6-2/18 (12天) · Ontario Airport<br>
+            <span style="color: var(--terracotta);">乘客：陳家4人 + 詹爸媽 = 6人</span>
+        </p>
+
+        <div class="rental-grid">
+            <div class="rental-card recommended">
+                <div class="rental-provider">Turo ⭐</div>
+                <div class="rental-price">$67<span>/天</span></div>
+                <ul class="rental-features">
+                    <li><strong>Tesla Model Y 7人座</strong></li>
+                    <li>車主 Justin B. (4.98評分)</li>
+                    <li>Riverside · ONT機場接送</li>
+                    <li>311 miles 續航 · AWD</li>
+                    <li>12天約 $804</li>
+                </ul>
+                <a href="https://turo.com/us/en/suv-rental/united-states/riverside-ca/tesla/model-y/2595383" target="_blank" class="rental-btn">立即預訂 →</a>
+            </div>
+
+            <div class="rental-card">
+                <div class="rental-provider">Hertz</div>
+                <div class="rental-price">$52-71<span>/天</span></div>
+                <ul class="rental-features">
+                    <li>Tesla Model Y (5座)</li>
+                    <li>官方租車公司</li>
+                    <li>ONT 機場據點</li>
+                    <li>310 miles 續航</li>
+                    <li>12天約 $624-852</li>
+                </ul>
+                <a href="https://www.hertz.com/p/car-rental/united-states/california/ontario/ontario-international-airport" target="_blank" class="rental-btn secondary">查看方案 →</a>
+            </div>
+
+            <div class="rental-card">
+                <div class="rental-provider">其他 Turo</div>
+                <div class="rental-price">$53-94<span>/天</span></div>
+                <ul class="rental-features">
+                    <li>Erwin Y. (Ontario) $53/天</li>
+                    <li>Jiyeon K. (Ontario) $94/天</li>
+                    <li>Fadi S. (Riverside) $69/天</li>
+                    <li>多種選擇</li>
+                    <li>需確認座位數</li>
+                </ul>
+                <a href="https://turo.com/us/en/car-rental/united-states/ontario-ca/tesla" target="_blank" class="rental-btn secondary">搜尋更多 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Section -->
+    <section class="section" id="checklist">
+        <div class="section-header">
+            <p class="section-tag">Preparation</p>
+            <h2 class="section-title">出發準備清單</h2>
+        </div>
+
+        <div class="checklist-grid">
+            <div class="checklist-card fade-in">
+                <div class="checklist-header">
+                    <span class="checklist-icon">🛂</span>
+                    <span class="checklist-title">入境準備</span>
+                </div>
+                <div class="checklist-item" data-id="esta">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>ESTA 申請 (陳家4人)</strong>
+                        <small>$21/人 · <a href="https://esta.cbp.dhs.gov/" target="_blank">官方申請網站 →</a></small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="passport-ai">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>⚠️ 陳僾護照效期確認</strong>
+                        <small>2027/07/21 到期 · 入境美國需6個月效期</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-card fade-in">
+                <div class="checklist-header">
+                    <span class="checklist-icon">🚗</span>
+                    <span class="checklist-title">駕駛準備</span>
+                </div>
+                <div class="checklist-item" data-id="idl1">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>陳致瑋 國際駕照</strong>
+                        <small>NT$250 · 監理站親辦 · 攜帶身分證+駕照+2吋照片</small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="idl2">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>詹涵宇 國際駕照</strong>
+                        <small>NT$250 · 監理站親辦</small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="rental">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>租車預訂</strong>
+                        <small>Tesla Model Y 7座 · Turo 推薦</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-card fade-in">
+                <div class="checklist-header">
+                    <span class="checklist-icon">🎫</span>
+                    <span class="checklist-title">票券預訂</span>
+                </div>
+                <div class="checklist-item" data-id="nba">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>NBA 門票 (4張)</strong>
+                        <small>2/9 Lakers vs Thunder · <a href="https://www.ticketmaster.com/los-angeles-lakers-vs-oklahoma-city-los-angeles-california-02-09-2026/event/2C00630818680AEC" target="_blank">Ticketmaster →</a></small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="disney">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>迪士尼門票 (11人)</strong>
+                        <small>2/10 · 陳葴(2歲)免費 · <a href="https://disneyland.disney.go.com/tickets" target="_blank">官網購票 →</a></small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="tubing">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>Big Bear 雪盆預約</strong>
+                        <small>2/16 · <a href="https://www.bigbearmountainresort.com/winter/tickets-passes/tubing" target="_blank">線上預約 →</a></small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-card fade-in">
+                <div class="checklist-header">
+                    <span class="checklist-icon">📦</span>
+                    <span class="checklist-title">行李清單</span>
+                </div>
+                <div class="checklist-item" data-id="docs">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>證件</strong>
+                        <small>護照、國際駕照、ESTA確認信、保險單</small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="snow">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>雪地裝備</strong>
+                        <small>防水外套、保暖手套、雪靴、太陽眼鏡</small>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="kids">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <strong>兒童用品</strong>
+                        <small>推車、兒童座椅、常備藥、零食</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Section -->
+    <section class="section members-section" id="members">
+        <div class="section-header">
+            <p class="section-tag">Our Crew</p>
+            <h2 class="section-title">旅行夥伴</h2>
+        </div>
+
+        <div class="family-grid">
+            <div class="family-card fade-in">
+                <h3 class="family-name">陳家 · 4人 🚗</h3>
+                <div class="member">
+                    <div class="member-avatar">👨</div>
+                    <div class="member-info">
+                        <h4>陳致瑋 (Nelsen)</h4>
+                        <p>爸爸 · 主駕駛</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👩</div>
+                    <div class="member-info">
+                        <h4>詹涵宇 (小A)</h4>
+                        <p>媽媽 · 副駕駛</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👧</div>
+                    <div class="member-info">
+                        <h4>陳僾</h4>
+                        <p>大女兒 · 5歲</p>
+                    </div>
+                    <span class="member-warning">護照注意</span>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👶</div>
+                    <div class="member-info">
+                        <h4>陳葴</h4>
+                        <p>小女兒 · 2歲</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="family-card fade-in">
+                <h3 class="family-name">盧家 · 4人</h3>
+                <div class="member">
+                    <div class="member-avatar">👨</div>
+                    <div class="member-info">
+                        <h4>盧冠宇</h4>
+                        <p>爸爸</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👩</div>
+                    <div class="member-info">
+                        <h4>小B</h4>
+                        <p>媽媽 · 小A雙胞胎</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👦</div>
+                    <div class="member-info">
+                        <h4>盧毅</h4>
+                        <p>兒子</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👧</div>
+                    <div class="member-info">
+                        <h4>盧禾</h4>
+                        <p>女兒</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="family-card fade-in">
+                <h3 class="family-name">長輩 · 3人</h3>
+                <div class="member">
+                    <div class="member-avatar">👴</div>
+                    <div class="member-info">
+                        <h4>詹爸爸</h4>
+                        <p>外公 · 搭陳家車</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👵</div>
+                    <div class="member-info">
+                        <h4>詹媽媽</h4>
+                        <p>外婆 · 搭陳家車</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">👵</div>
+                    <div class="member-info">
+                        <h4>盧媽媽</h4>
+                        <p>盧家媽媽</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flights Section -->
+    <section class="section flight-section" id="flights">
+        <div class="section-header">
+            <p class="section-tag">Transportation</p>
+            <h2 class="section-title">航班資訊</h2>
+        </div>
+
+        <div class="flight-grid">
+            <div class="flight-card fade-in">
+                <div class="flight-label">OUTBOUND · 2026/02/06 (五)</div>
+                <div class="flight-route">
+                    <div class="flight-point">
+                        <div class="flight-code">TPE</div>
+                        <div class="flight-time">21:25</div>
+                        <div class="flight-city">台北桃園 T2</div>
+                    </div>
+                    <div class="flight-line"></div>
+                    <div class="flight-point">
+                        <div class="flight-code">ONT</div>
+                        <div class="flight-time">16:50</div>
+                        <div class="flight-city">安大略 T1</div>
+                    </div>
+                </div>
+                <div class="flight-details">
+                    <span class="flight-tag">CI24 華航</span>
+                    <span class="flight-tag">11h 25m</span>
+                    <span class="flight-tag">B777-300ER</span>
+                </div>
+            </div>
+
+            <div class="flight-card fade-in">
+                <div class="flight-label">RETURN · 2026/02/18 (三)</div>
+                <div class="flight-route">
+                    <div class="flight-point">
+                        <div class="flight-code">ONT</div>
+                        <div class="flight-time">22:50</div>
+                        <div class="flight-city">安大略 T2</div>
+                    </div>
+                    <div class="flight-line"></div>
+                    <div class="flight-point">
+                        <div class="flight-code">TPE</div>
+                        <div class="flight-time">05:30+1</div>
+                        <div class="flight-city">台北 (2/20)</div>
+                    </div>
+                </div>
+                <div class="flight-details">
+                    <span class="flight-tag">CI23 華航</span>
+                    <span class="flight-tag">14h 40m</span>
+                    <span class="flight-tag">B777-300ER</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-info">
+            訂單: 2025-12835369 · PNR: ETOL6M
+        </div>
+    </section>
+
+    <!-- Accommodation Placeholder -->
+    <section class="section" style="background: var(--sand);">
+        <div class="section-header">
+            <p class="section-tag">Accommodation</p>
+            <h2 class="section-title">住宿資訊</h2>
+        </div>
+        <div class="placeholder-card">
+            <div class="placeholder-icon">🏠</div>
+            <p class="placeholder-text">住宿資訊待更新</p>
+            <p class="placeholder-sub">妹夫規劃中，稍後補上</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-title">California 2026 🌴</div>
+        <p>陳家 & 盧家的美西冒險</p>
+        <div class="footer-links">
+            <a href="https://www.notion.so/2026-California-Family-Trip-2eda9189f07d813f8de5e52df86ad048" target="_blank">📝 Notion</a>
+            <a href="trip-data.json" target="_blank">📊 JSON</a>
+        </div>
+        <p class="footer-note">更新: 2026-01-19</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // ===== COMPLETE TRIP DATA WITH DETAILED SPOTS =====
+        const tripData = [
+            {
+                day: 1,
+                date: "2026-02-06",
+                dayOfWeek: "五",
+                title: "抵達加州",
+                location: "Ontario",
+                spots: [
+                    { time: "16:50", name: "Ontario International Airport", icon: "✈️", desc: "抵達安大略機場 Terminal 1", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
+                    { time: "17:30", name: "取車 Tesla Model Y", icon: "🚗", desc: "Turo 取車 (Justin B.)", lat: 34.056, lng: -117.601 },
+                    { time: "19:00", name: "住宿 Check-in", icon: "🏠", desc: "休息調時差", lat: 34.056, lng: -117.601 }
+                ],
+                tips: "國際線提領行李約 30-45 分鐘"
+            },
+            {
+                day: 2,
+                date: "2026-02-07",
+                dayOfWeek: "六",
+                title: "洛杉磯探索日",
+                location: "Los Angeles",
+                spots: [
+                    { time: "09:00", name: "Santa Monica Pier", icon: "🎡", desc: "經典太平洋公園摩天輪，Route 66 終點", lat: 34.0086, lng: -118.4977, maps: "https://maps.google.com/?q=Santa+Monica+Pier", website: "https://santamonicapier.org" },
+                    { time: "11:00", name: "Venice Beach", icon: "🏖️", desc: "海濱步道、街頭表演、Muscle Beach", lat: 33.9850, lng: -118.4695, maps: "https://maps.google.com/?q=Venice+Beach+Boardwalk" },
+                    { time: "13:00", name: "Superba", icon: "🍽️", desc: "California Brunch · 家庭友善 · 戶外座位", lat: 33.9930, lng: -118.4680, maps: "https://maps.google.com/?q=Superba+Venice", website: "https://superbafood.com", type: "restaurant" },
+                    { time: "15:00", name: "The Grove", icon: "🛍️", desc: "LA最美購物中心 · 免費有軌電車 · 噴泉表演", lat: 34.0720, lng: -118.3578, maps: "https://maps.google.com/?q=The+Grove+Los+Angeles", website: "https://thegrovela.com" },
+                    { time: "18:00", name: "Griffith Observatory", icon: "🔭", desc: "免費入場 · 看夕陽 · Hollywood Sign 最佳角度", lat: 34.1184, lng: -118.3004, maps: "https://maps.google.com/?q=Griffith+Observatory", website: "https://griffithobservatory.org" },
+                    { time: "20:00", name: "Carousel", icon: "🍽️", desc: "黎巴嫩家庭式料理 · 大份量分享", lat: 34.1518, lng: -118.2532, maps: "https://maps.google.com/?q=Carousel+Restaurant+Glendale", type: "restaurant" }
+                ],
+                tips: "Griffith Observatory 停車位有限，建議提早到"
+            },
+            {
+                day: 3,
+                date: "2026-02-08",
+                dayOfWeek: "日",
+                title: "好萊塢 & Tesla Diner",
+                location: "Hollywood",
+                highlight: "🚗 Tesla Diner",
+                spots: [
+                    { time: "10:30", name: "Hollywood Walk of Fame", icon: "⭐", desc: "星光大道 · TCL中國戲院 · 杜比劇院", lat: 34.1016, lng: -118.3267, maps: "https://maps.google.com/?q=Hollywood+Walk+of+Fame" },
+                    { time: "12:30", name: "Tesla Supercharger Diner", icon: "🚗", desc: "太空飛碟造型 · 66呎LED螢幕 · 24/7營業 · Burger $13.50", lat: 34.0903, lng: -118.3461, maps: "https://maps.google.com/?q=7001+Santa+Monica+Blvd+Hollywood", website: "https://www.tesla.com/supercharger", type: "restaurant", mustVisit: true },
+                    { time: "15:00", name: "Rodeo Drive", icon: "💎", desc: "比佛利山莊精品街 · 免費街拍", lat: 34.0674, lng: -118.4003, maps: "https://maps.google.com/?q=Rodeo+Drive+Beverly+Hills" },
+                    { time: "17:30", name: "Getty Center", icon: "🏛️", desc: "免費世界級美術館 · 建築大師 Richard Meier 設計", lat: 34.0780, lng: -118.4741, maps: "https://maps.google.com/?q=Getty+Center", website: "https://www.getty.edu/visit/center" },
+                    { time: "20:00", name: "Grand Central Market", icon: "🍽️", desc: "百年美食廣場 · Eggslut · McConnell's 冰淇淋", lat: 34.0507, lng: -118.2491, maps: "https://maps.google.com/?q=Grand+Central+Market+LA", website: "https://grandcentralmarket.com", type: "restaurant" }
+                ],
+                tips: "Tesla Diner 可用 Tesla 車內螢幕點餐！停車同時充電超方便"
+            },
+            {
+                day: 4,
+                date: "2026-02-09",
+                dayOfWeek: "一",
+                title: "NBA 湖人 vs 雷霆",
+                location: "Downtown LA",
+                highlight: "🏀 NBA Game",
+                spots: [
+                    { time: "10:00", name: "悠閒早午餐", icon: "☕", desc: "睡到自然醒，附近餐廳 brunch", lat: 34.0522, lng: -118.2437 },
+                    { time: "12:00", name: "LACMA", icon: "🎨", desc: "洛杉磯藝術博物館 · Urban Light 路燈裝置藝術", lat: 34.0639, lng: -118.3592, maps: "https://maps.google.com/?q=LACMA", website: "https://www.lacma.org" },
+                    { time: "15:00", name: "Little Tokyo", icon: "🍜", desc: "日本城 · 拉麵 · 日式甜點 · 動漫周邊", lat: 34.0502, lng: -118.2405, maps: "https://maps.google.com/?q=Little+Tokyo+Los+Angeles" },
+                    { time: "17:00", name: "Brent's Deli", icon: "🍽️", desc: "經典美式 Deli · 超大份量三明治", lat: 34.1784, lng: -118.5310, maps: "https://maps.google.com/?q=Brents+Deli+Northridge", type: "restaurant" },
+                    { time: "19:00", name: "Lakers vs Thunder", icon: "🏀", desc: "Crypto.com Arena · 4人觀賽 (Nelsen, 小A, 盧冠宇, 小B)", lat: 34.0430, lng: -118.2673, maps: "https://maps.google.com/?q=Crypto.com+Arena", website: "https://www.cryptoarena.com", mustVisit: true }
+                ],
+                tips: "長輩幫忙照顧小朋友 · 比賽約 2.5 小時 · 建議提早入場感受氛圍"
+            },
+            {
+                day: 5,
+                date: "2026-02-10",
+                dayOfWeek: "二",
+                title: "迪士尼樂園",
+                location: "Anaheim",
+                highlight: "🏰 全員出動",
+                spots: [
+                    { time: "07:00", name: "GCH Craftsman Grill", icon: "🍳", desc: "Grand Californian Hotel · 米奇鬆餅", lat: 33.8087, lng: -117.9219, maps: "https://maps.google.com/?q=Grand+Californian+Hotel", type: "restaurant" },
+                    { time: "08:00", name: "Disneyland Park", icon: "🏰", desc: "全員11人入園 · 陳葴(2歲)免費 · 農曆新年慶典中", lat: 33.8121, lng: -117.9190, maps: "https://maps.google.com/?q=Disneyland+Park+Anaheim", website: "https://disneyland.disney.go.com", mustVisit: true },
+                    { time: "12:00", name: "Carnation Café", icon: "🍽️", desc: "Main Street 經典美式 · Walt Disney 最愛", lat: 33.8110, lng: -117.9189, type: "restaurant" },
+                    { time: "18:00", name: "Blue Bayou", icon: "🍽️", desc: "Pirates of the Caribbean 旁 · 需預約 · 夜晚氛圍超棒", lat: 33.8114, lng: -117.9209, website: "https://disneyland.disney.go.com/dining/disneyland/blue-bayou-restaurant/", type: "restaurant" },
+                    { time: "21:00", name: "Wondrous Journeys 煙火", icon: "🎆", desc: "Main Street 最佳觀賞位置 · 提早30分鐘卡位", lat: 33.8121, lng: -117.9190 }
+                ],
+                tips: "善用 Rider Switch (有小小孩家庭) · Genie+ 可考慮購買 ($25/人) · 記得帶推車"
+            },
+            {
+                day: 6,
+                date: "2026-02-11",
+                dayOfWeek: "三",
+                title: "前往聖地牙哥",
+                location: "San Diego",
+                spots: [
+                    { time: "08:00", name: "開車前往 San Diego", icon: "🚗", desc: "車程約 2 小時 (100 英里)", lat: 33.8121, lng: -117.9190 },
+                    { time: "11:30", name: "Richard Walker's Pancake House", icon: "🥞", desc: "超棒鬆餅 · 蘋果鬆餅招牌 · 兒童菜單", lat: 32.7232, lng: -117.1693, maps: "https://maps.google.com/?q=Richard+Walkers+Pancake+House+San+Diego", website: "https://richardwalkers.com", type: "restaurant" },
+                    { time: "13:00", name: "USS Midway Museum", icon: "⚓", desc: "退役航空母艦 · 2月博物館月半價！· 可登上甲板", lat: 32.7137, lng: -117.1751, maps: "https://maps.google.com/?q=USS+Midway+Museum", website: "https://www.midway.org" },
+                    { time: "16:00", name: "Seaport Village", icon: "🌊", desc: "海濱購物村 · 旋轉木馬 · 海景步道", lat: 32.7092, lng: -117.1702, maps: "https://maps.google.com/?q=Seaport+Village+San+Diego" },
+                    { time: "18:30", name: "Buon Appetito", icon: "🍝", desc: "Little Italy 得獎義大利餐廳 · 手工麵食", lat: 32.7233, lng: -117.1687, maps: "https://maps.google.com/?q=Buon+Appetito+San+Diego", website: "https://www.buonappetito.us", type: "restaurant" }
+                ],
+                tips: "2月是 San Diego Museum Month - 很多博物館半價！"
+            },
+            {
+                day: 7,
+                date: "2026-02-12",
+                dayOfWeek: "四",
+                title: "聖地牙哥深度遊",
+                location: "La Jolla",
+                spots: [
+                    { time: "08:00", name: "The Cottage", icon: "🍳", desc: "La Jolla 海邊小屋早餐 · 排隊名店", lat: 32.8507, lng: -117.2713, maps: "https://maps.google.com/?q=The+Cottage+La+Jolla", type: "restaurant" },
+                    { time: "10:00", name: "San Diego Zoo", icon: "🦁", desc: "世界級動物園 · 熊貓館 · 可搭園內巴士", lat: 32.7353, lng: -117.1490, maps: "https://maps.google.com/?q=San+Diego+Zoo", website: "https://zoo.sandiegozoo.org" },
+                    { time: "13:00", name: "Burger Lounge", icon: "🍔", desc: "有機草飼牛漢堡 · 兒童套餐含冰淇淋", lat: 32.8505, lng: -117.2709, maps: "https://maps.google.com/?q=Burger+Lounge+La+Jolla", type: "restaurant" },
+                    { time: "15:00", name: "La Jolla Cove", icon: "🦭", desc: "海豹海獅聚集地 · 2月育幼季 · 保持50呎距離", lat: 32.8508, lng: -117.2711, maps: "https://maps.google.com/?q=La+Jolla+Cove" },
+                    { time: "17:00", name: "Birch Aquarium", icon: "🐠", desc: "Scripps 海洋研究所附設水族館 · 觸摸池", lat: 32.8663, lng: -117.2512, maps: "https://maps.google.com/?q=Birch+Aquarium", website: "https://aquarium.ucsd.edu" },
+                    { time: "19:00", name: "Duke's La Jolla", icon: "🌴", desc: "夏威夷風海景餐廳 · 兒童菜單有遊戲", lat: 32.8503, lng: -117.2713, maps: "https://maps.google.com/?q=Dukes+La+Jolla", website: "https://www.dukeslajolla.com", type: "restaurant" }
+                ],
+                tips: "賞鯨季節中！可考慮參加賞鯨團"
+            },
+            {
+                day: 8,
+                date: "2026-02-13",
+                dayOfWeek: "五",
+                title: "前往棕櫚泉",
+                location: "Palm Springs",
+                spots: [
+                    { time: "08:00", name: "開車前往 Palm Springs", icon: "🚗", desc: "車程約 2.5 小時 · 穿越沙漠", lat: 32.7157, lng: -117.1611 },
+                    { time: "11:00", name: "Palm Springs Aerial Tramway", icon: "🚡", desc: "世界最大旋轉纜車 · 山頂比山下低30-40°F · 可能有雪！", lat: 33.8277, lng: -116.6146, maps: "https://maps.google.com/?q=Palm+Springs+Aerial+Tramway", website: "https://www.pstramway.com" },
+                    { time: "13:00", name: "Peaks Restaurant (山頂)", icon: "🍽️", desc: "山頂景觀餐廳 · 海拔 8,516 呎", lat: 33.8154, lng: -116.6345, type: "restaurant" },
+                    { time: "17:00", name: "Downtown Palm Springs", icon: "🌴", desc: "棕櫚峽谷大道散步 · Mid-century 建築 · 復古風情", lat: 33.8303, lng: -116.5453, maps: "https://maps.google.com/?q=Palm+Canyon+Drive+Palm+Springs" },
+                    { time: "19:00", name: "Las Casuelas Terraza", icon: "🌮", desc: "經典墨西哥菜 · 戶外 patio · 價格實惠", lat: 33.8299, lng: -116.5457, maps: "https://maps.google.com/?q=Las+Casuelas+Terraza", website: "https://www.lascasuelas.com", type: "restaurant" }
+                ],
+                tips: "Tramway 票價：成人 $30.95、兒童(3-10) $18.95 · 山頂記得帶外套！"
+            },
+            {
+                day: 9,
+                date: "2026-02-14",
+                dayOfWeek: "六",
+                title: "棕櫚泉 · 情人節",
+                location: "Palm Springs",
+                highlight: "💕 Valentine's Day",
+                spots: [
+                    { time: "09:00", name: "Elmer's Palm Springs", icon: "🥞", desc: "經典早餐 · 德式蘋果鬆餅招牌", lat: 33.8241, lng: -116.5463, maps: "https://maps.google.com/?q=Elmers+Restaurant+Palm+Springs", type: "restaurant" },
+                    { time: "10:30", name: "Living Desert Zoo", icon: "🦒", desc: "沙漠動物園 · 可餵長頸鹿！· 澳洲區近距離接觸袋鼠", lat: 33.7261, lng: -116.3673, maps: "https://maps.google.com/?q=Living+Desert+Zoo", website: "https://www.livingdesert.org" },
+                    { time: "13:00", name: "LuLu California Bistro", icon: "🍽️", desc: "OpenTable 百大餐廳 · 創意加州料理", lat: 33.8299, lng: -116.5455, maps: "https://maps.google.com/?q=LuLu+California+Bistro+Palm+Springs", type: "restaurant" },
+                    { time: "15:00", name: "Children's Discovery Museum", icon: "🎨", desc: "兒童探索博物館 · 互動展覽 · 適合小朋友", lat: 33.7754, lng: -116.4553, maps: "https://maps.google.com/?q=Childrens+Discovery+Museum+Rancho+Mirage", website: "https://cdmod.org" },
+                    { time: "19:30", name: "Eight4Nine", icon: "💕", desc: "情人節晚餐 · 時尚美式料理 · 需預約", lat: 33.8303, lng: -116.5467, maps: "https://maps.google.com/?q=Eight4Nine+Palm+Springs", website: "https://eight4nine.com", type: "restaurant", mustVisit: true }
+                ],
+                tips: "情人節餐廳一定要提前預約！Living Desert 長頸鹿餵食需額外購票"
+            },
+            {
+                day: 10,
+                date: "2026-02-15",
+                dayOfWeek: "日",
+                title: "前往大熊湖",
+                location: "Big Bear Lake",
+                spots: [
+                    { time: "08:00", name: "開車前往 Big Bear", icon: "🚗", desc: "車程約 2 小時 · 山路蜿蜒 · 可能需要雪鏈", lat: 33.8303, lng: -116.5453 },
+                    { time: "11:00", name: "Big Bear 小木屋 Check-in", icon: "🏠", desc: "入住溫馨小木屋", lat: 34.2439, lng: -116.9114 },
+                    { time: "12:00", name: "Teddy Bear Restaurant", icon: "🐻", desc: "家庭式餐廳 · 招牌雞肉派", lat: 34.2435, lng: -116.8908, maps: "https://maps.google.com/?q=Teddy+Bear+Restaurant+Big+Bear", type: "restaurant" },
+                    { time: "14:00", name: "Big Bear Village", icon: "🛍️", desc: "漫步購物 · 手工藝品 · 湖景", lat: 34.2435, lng: -116.8908, maps: "https://maps.google.com/?q=Big+Bear+Village" },
+                    { time: "16:00", name: "雪地玩耍", icon: "⛄", desc: "堆雪人 · 打雪仗 · 享受白雪世界", lat: 34.2439, lng: -116.9114 },
+                    { time: "19:00", name: "Peppercorn Grille", icon: "🍽️", desc: "山區高級餐廳 · 牛排海鮮", lat: 34.2434, lng: -116.8929, maps: "https://maps.google.com/?q=Peppercorn+Grille+Big+Bear", website: "https://www.peppercorngrille.com", type: "restaurant" }
+                ],
+                tips: "海拔 6,750 呎 · 多喝水預防高山症 · 山路請小心駕駛"
+            },
+            {
+                day: 11,
+                date: "2026-02-16",
+                dayOfWeek: "一",
+                title: "大熊湖雪地日",
+                location: "Big Bear Lake",
+                highlight: "⛷️ 滑雪 & 雪盆",
+                spots: [
+                    { time: "08:00", name: "Grizzly Manor Café", icon: "🥞", desc: "經典早餐店 · 份量超大 · 排隊名店", lat: 34.2434, lng: -116.8940, maps: "https://maps.google.com/?q=Grizzly+Manor+Cafe+Big+Bear", type: "restaurant" },
+                    { time: "10:00", name: "Snow Summit", icon: "⛷️", desc: "滑雪場 · 初學者友善 · 有滑雪學校", lat: 34.2304, lng: -116.8680, maps: "https://maps.google.com/?q=Snow+Summit+Big+Bear", website: "https://www.bigbearmountainresort.com" },
+                    { time: "14:00", name: "Grizzly Ridge Tube Park", icon: "🛷", desc: "雪盆樂園 · 全家歡樂 · 建議線上預約！", lat: 34.2304, lng: -116.8680, website: "https://www.bigbearmountainresort.com/winter/tickets-passes/tubing", mustVisit: true },
+                    { time: "19:00", name: "Oakside Restaurant", icon: "🍽️", desc: "美式料理 · 週末有現場音樂", lat: 34.2430, lng: -116.8932, maps: "https://maps.google.com/?q=Oakside+Big+Bear", type: "restaurant" },
+                    { time: "21:00", name: "Glow Tubing", icon: "🌟", desc: "夜間雪盆 · LED 燈光 · 音樂派對 (選)", lat: 34.2304, lng: -116.8680, website: "https://www.bigbearmountainresort.com/winter/tickets-passes/tubing" }
+                ],
+                tips: "雪盆 (Tubing) 現場排隊很長，強烈建議線上預約！"
+            },
+            {
+                day: 12,
+                date: "2026-02-17",
+                dayOfWeek: "二",
+                title: "大熊湖悠閒日",
+                location: "Big Bear Lake",
+                spots: [
+                    { time: "09:00", name: "悠閒早餐", icon: "☕", desc: "睡到自然醒", lat: 34.2439, lng: -116.9114 },
+                    { time: "10:30", name: "Big Bear Alpine Zoo", icon: "🐻", desc: "高山動物園 · 救援動物 · 教育性質", lat: 34.2650, lng: -116.8400, maps: "https://maps.google.com/?q=Big+Bear+Alpine+Zoo", website: "https://www.bigbearzoo.org" },
+                    { time: "12:30", name: "Saucy Mama's Pizza", icon: "🍕", desc: "Village 人氣披薩店 · 手工現做", lat: 34.2436, lng: -116.8917, maps: "https://maps.google.com/?q=Saucys+Pizza+Big+Bear", type: "restaurant" },
+                    { time: "14:00", name: "Bowling Barn", icon: "🎳", desc: "保齡球 · 溜冰 · 電玩 · 雨天備案", lat: 34.2504, lng: -116.8695, maps: "https://maps.google.com/?q=Bowling+Barn+Big+Bear", website: "https://www.bowlingbarn.com" },
+                    { time: "16:00", name: "North Pole Sweets", icon: "🍬", desc: "老式糖果店 · 太妃糖 · 聖誕商品", lat: 34.2434, lng: -116.8923, maps: "https://maps.google.com/?q=North+Pole+Fudge+Big+Bear" },
+                    { time: "18:30", name: "The Pines Lakefront", icon: "🌲", desc: "1920年代經典湖景餐廳 · 需預約", lat: 34.2465, lng: -116.8880, maps: "https://maps.google.com/?q=Pines+Lakefront+Big+Bear", website: "https://www.thepineslakefront.com", type: "restaurant" }
+                ],
+                tips: "The Pines Lakefront 晚餐很熱門，建議提前預約"
+            },
+            {
+                day: 13,
+                date: "2026-02-18",
+                dayOfWeek: "三",
+                title: "回程",
+                location: "Ontario",
+                spots: [
+                    { time: "09:00", name: "退房整理", icon: "🧳", desc: "打包行李、check-out", lat: 34.2439, lng: -116.9114 },
+                    { time: "10:00", name: "開車返回 Ontario", icon: "🚗", desc: "車程約 1.5 小時", lat: 34.2439, lng: -116.9114 },
+                    { time: "12:00", name: "Ontario Mills Outlet", icon: "🛍️", desc: "最後採購！200+ 品牌 · Nike, Coach, Gap 等", lat: 34.0584, lng: -117.5574, maps: "https://maps.google.com/?q=Ontario+Mills", website: "https://www.simon.com/mall/ontario-mills" },
+                    { time: "18:00", name: "還車", icon: "🚗", desc: "Turo 還車 · ONT 機場附近", lat: 34.056, lng: -117.601 },
+                    { time: "19:00", name: "Ontario Airport", icon: "✈️", desc: "抵達機場辦理登機 · Terminal 2", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
+                    { time: "22:50", name: "CI23 起飛", icon: "🛫", desc: "返回台灣 · 飛行 14h40m · 2/20 05:30 抵達 TPE", lat: 34.056, lng: -117.601, mustVisit: true }
+                ],
+                tips: "國際航班請提前 3 小時到機場 · 預留還車時間"
+            }
+        ];
+
+        // ===== RENDER ITINERARY CARDS =====
+        function renderItinerary() {
+            const grid = document.getElementById('itineraryGrid');
+            grid.innerHTML = tripData.map(day => `
+                <div class="day-card fade-in" data-day="${day.day}">
+                    <div class="day-card-header">
+                        <div class="day-num">D${day.day}</div>
+                        <div class="day-info">
+                            <h3>${day.title}</h3>
+                            <span>${day.date.slice(5)} (${day.dayOfWeek}) · ${day.location}</span>
+                        </div>
+                        ${day.highlight ? `<span class="day-highlight">${day.highlight}</span>` : ''}
+                    </div>
+                    <div class="day-card-body">
+                        <div class="spot-list">
+                            ${day.spots.map(spot => `
+                                <div class="spot-card" data-lat="${spot.lat}" data-lng="${spot.lng}">
+                                    <span class="spot-time">${spot.time}</span>
+                                    <div class="spot-content">
+                                        <div class="spot-name">
+                                            <span class="spot-icon">${spot.icon}</span>
+                                            ${spot.name}
+                                            ${spot.mustVisit ? '<span style="color: var(--terracotta);">★</span>' : ''}
+                                        </div>
+                                        <div class="spot-desc">${spot.desc}</div>
+                                        <div class="spot-links">
+                                            ${spot.maps ? `<a href="${spot.maps}" target="_blank" class="spot-link">📍 地圖</a>` : ''}
+                                            ${spot.website ? `<a href="${spot.website}" target="_blank" class="spot-link">🔗 官網</a>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ${day.tips ? `<div class="day-tips"><strong>💡 小提醒：</strong>${day.tips}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.day-card').forEach(card => {
+                card.querySelector('.day-card-header').addEventListener('click', () => {
+                    card.classList.toggle('expanded');
+                });
+            });
+
+            // Spot card click to focus on map
+            document.querySelectorAll('.spot-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('spot-link') || e.target.closest('.spot-link')) return;
+                    const lat = parseFloat(card.dataset.lat);
+                    const lng = parseFloat(card.dataset.lng);
+                    if (map && lat && lng) {
+                        map.setView([lat, lng], 14);
+                        document.getElementById('map-section').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // ===== MAP INITIALIZATION =====
+        let map = null;
+        let markers = [];
+        let routeLine = null;
+        let currentDay = 'all';
+
+        function initMap() {
+            if (map) return;
+
+            map = L.map('trip-map', {
+                zoomControl: true,
+                scrollWheelZoom: true
+            }).setView([33.7, -117.3], 8);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap © CARTO',
+                maxZoom: 18
+            }).addTo(map);
+
+            renderDaySelector();
+            renderMapForDay('all');
+        }
+
+        function renderDaySelector() {
+            const selector = document.getElementById('mapDaySelector');
+            selector.innerHTML = `
+                <button class="day-btn active" data-day="all">全程</button>
+                ${tripData.map(d => `
+                    <button class="day-btn" data-day="${d.day}">D${d.day}</button>
+                `).join('')}
+            `;
+
+            selector.querySelectorAll('.day-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selector.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderMapForDay(btn.dataset.day);
+                });
+            });
+        }
+
+        function renderMapForDay(day) {
+            currentDay = day;
+
+            // Clear existing markers and route
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+            if (routeLine) map.removeLayer(routeLine);
+
+            const spots = day === 'all'
+                ? tripData.flatMap(d => d.spots.map(s => ({ ...s, day: d.day })))
+                : tripData.find(d => d.day == day)?.spots.map(s => ({ ...s, day: parseInt(day) })) || [];
+
+            const coords = [];
+
+            spots.forEach((spot, idx) => {
+                if (!spot.lat || !spot.lng) return;
+
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="
+                        background: linear-gradient(135deg, ${spot.mustVisit ? '#D4A5A5' : '#C4A484'}, ${spot.mustVisit ? '#C4A484' : '#D4A5A5'});
+                        border: 3px solid white;
+                        border-radius: 50%;
+                        width: 38px;
+                        height: 38px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 16px;
+                        box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+                        ${spot.mustVisit ? 'animation: pulse 2s infinite;' : ''}
+                    ">${spot.icon}</div>`,
+                    iconSize: [38, 38],
+                    iconAnchor: [19, 19]
+                });
+
+                const popupContent = `
+                    <div class="popup-title">${spot.icon} ${spot.name}</div>
+                    <div class="popup-desc">${spot.desc}</div>
+                    <div class="popup-links">
+                        ${spot.maps ? `<a href="${spot.maps}" target="_blank" class="popup-link">📍 Google Maps</a>` : ''}
+                        ${spot.website ? `<a href="${spot.website}" target="_blank" class="popup-link">🔗 官網</a>` : ''}
+                    </div>
+                `;
+
+                const marker = L.marker([spot.lat, spot.lng], { icon })
+                    .bindPopup(popupContent)
+                    .addTo(map);
+
+                markers.push(marker);
+                coords.push([spot.lat, spot.lng]);
+            });
+
+            // Draw route line
+            if (coords.length > 1) {
+                routeLine = L.polyline(coords, {
+                    color: '#C4A484',
+                    weight: 3,
+                    opacity: 0.7,
+                    dashArray: day === 'all' ? '8, 8' : null
+                }).addTo(map);
+            }
+
+            // Fit bounds
+            if (coords.length > 0) {
+                const bounds = L.latLngBounds(coords);
+                map.fitBounds(bounds, { padding: [50, 50] });
+            }
+
+            // Update sidebar
+            renderSidebar(spots, day);
+        }
+
+        function renderSidebar(spots, day) {
+            const sidebar = document.getElementById('routeList');
+            const dayTitle = day === 'all' ? '全程路線' : `Day ${day} 路線`;
+
+            document.querySelector('.sidebar-title').textContent = `📍 ${dayTitle}`;
+
+            sidebar.innerHTML = spots.filter(s => s.lat && s.lng).map((spot, idx) => `
+                <div class="route-item" data-idx="${idx}">
+                    <div class="route-item-header">
+                        <span class="route-icon">${spot.icon}</span>
+                        <div class="route-info">
+                            <div class="route-name">${spot.name}</div>
+                            <div class="route-time">${spot.time}${day === 'all' ? ` · D${spot.day}` : ''}</div>
+                        </div>
+                        <span class="route-arrow">→</span>
+                    </div>
+                </div>
+            `).join('');
+
+            sidebar.querySelectorAll('.route-item').forEach((item, idx) => {
+                item.addEventListener('click', () => {
+                    const filteredSpots = spots.filter(s => s.lat && s.lng);
+                    const spot = filteredSpots[idx];
+                    if (spot) {
+                        map.setView([spot.lat, spot.lng], 15);
+                        markers[idx]?.openPopup();
+                    }
+                });
+            });
+        }
+
+        // ===== EVENT LISTENERS =====
+        document.getElementById('expandAll').addEventListener('click', () => {
+            document.querySelectorAll('.day-card').forEach(card => card.classList.add('expanded'));
+        });
+
+        document.getElementById('collapseAll').addEventListener('click', () => {
+            document.querySelectorAll('.day-card').forEach(card => card.classList.remove('expanded'));
+        });
+
+        // Top nav scroll effect
+        const topNav = document.getElementById('topNav');
+        window.addEventListener('scroll', () => {
+            topNav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Quick nav active state
+        const quickNavLinks = document.querySelectorAll('.quick-nav a');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            quickNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Checklist with localStorage
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            const id = item.dataset.id;
+            const checkbox = item.querySelector('.checkbox');
+
+            if (localStorage.getItem('check-' + id) === 'true') {
+                checkbox.classList.add('checked');
+                item.classList.add('done');
+            }
+
+            item.addEventListener('click', () => {
+                checkbox.classList.toggle('checked');
+                item.classList.toggle('done');
+                localStorage.setItem('check-' + id, checkbox.classList.contains('checked'));
+            });
+        });
+
+        // Fade in animation
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Map lazy init
+        const mapObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                initMap();
+                mapObserver.disconnect();
+            }
+        }, { threshold: 0.1 });
+
+        mapObserver.observe(document.getElementById('trip-map'));
+
+        // Initialize
+        renderItinerary();
+
+        // Re-observe after render
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }, 100);
+
+        // Add CSS for marker pulse
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
