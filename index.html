@@ -76,8 +76,17 @@
         }
 
         .quick-nav .nav-icon {
-            font-size: 20px;
+            width: 22px;
+            height: 22px;
             margin-bottom: 2px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .quick-nav .nav-icon svg {
+            width: 100%;
+            height: 100%;
         }
 
         @media (max-width: 768px) {
@@ -1196,23 +1205,23 @@
     <nav class="quick-nav">
         <div class="quick-nav-inner">
             <a href="#itinerary" class="active">
-                <span class="nav-icon">📅</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span>
                 <span>行程</span>
             </a>
             <a href="#map-section">
-                <span class="nav-icon">🗺️</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span>
                 <span>地圖</span>
             </a>
             <a href="#rental">
-                <span class="nav-icon">🚗</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 17h2l.64-2.55a3.5 3.5 0 0 0 0-1.9L20 9H4l-1.64 3.55a3.5 3.5 0 0 0 0 1.9L3 17h2"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M14 17H9"/><path d="M5 9l1.5-4.5h11L19 9"/></svg></span>
                 <span>租車</span>
             </a>
             <a href="#checklist">
-                <span class="nav-icon">✅</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
                 <span>準備</span>
             </a>
             <a href="#members">
-                <span class="nav-icon">👨‍👩‍👧</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
                 <span>成員</span>
             </a>
         </div>
@@ -1293,52 +1302,59 @@
     <section class="section" id="rental">
         <div class="section-header">
             <p class="section-tag">Transportation</p>
-            <h2 class="section-title">租車方案</h2>
+            <h2 class="section-title">租車資訊</h2>
         </div>
 
-        <p style="text-align: center; margin-bottom: 35px; color: var(--olive-dark);">
-            Tesla Model Y · 2/6-2/18 (12天) · Ontario Airport<br>
-            <span style="color: var(--terracotta);">乘客：陳家4人 + 詹爸媽 = 6人</span>
-        </p>
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="rental-card recommended" style="text-align: center; padding: 30px;">
+                <div style="display: inline-block; background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 15px;">✓ 已預訂確認</div>
+                <div class="rental-provider" style="font-size: 28px; margin-bottom: 5px;">Turo</div>
+                <div style="font-size: 22px; font-weight: 600; color: var(--charcoal); margin-bottom: 20px;">Tesla Model Y 2023</div>
 
-        <div class="rental-grid">
-            <div class="rental-card recommended">
-                <div class="rental-provider">Turo ⭐</div>
-                <div class="rental-price">$67<span>/天</span></div>
-                <ul class="rental-features">
-                    <li><strong>Tesla Model Y 7人座</strong></li>
-                    <li>車主 Justin B. (4.98評分)</li>
-                    <li>Riverside · ONT機場接送</li>
-                    <li>311 miles 續航 · AWD</li>
-                    <li>12天約 $804</li>
-                </ul>
-                <a href="https://turo.com/us/en/suv-rental/united-states/riverside-ca/tesla/model-y/2595383" target="_blank" class="rental-btn">立即預訂 →</a>
-            </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; margin-bottom: 25px;">
+                    <div style="background: var(--sand); padding: 15px; border-radius: 12px;">
+                        <div style="font-size: 11px; color: var(--olive); text-transform: uppercase; letter-spacing: 0.5px;">取車日期</div>
+                        <div style="font-weight: 600; color: var(--charcoal);">2026/02/06 (五)</div>
+                        <div style="font-size: 13px; color: var(--olive-dark);">6:00 PM（美國時間）</div>
+                    </div>
+                    <div style="background: var(--sand); padding: 15px; border-radius: 12px;">
+                        <div style="font-size: 11px; color: var(--olive); text-transform: uppercase; letter-spacing: 0.5px;">還車日期</div>
+                        <div style="font-weight: 600; color: var(--charcoal);">2026/02/18 (三)</div>
+                        <div style="font-size: 13px; color: var(--olive-dark);">6:00 PM（美國時間）</div>
+                    </div>
+                </div>
 
-            <div class="rental-card">
-                <div class="rental-provider">Hertz</div>
-                <div class="rental-price">$52-71<span>/天</span></div>
-                <ul class="rental-features">
-                    <li>Tesla Model Y (5座)</li>
-                    <li>官方租車公司</li>
-                    <li>ONT 機場據點</li>
-                    <li>310 miles 續航</li>
-                    <li>12天約 $624-852</li>
-                </ul>
-                <a href="https://www.hertz.com/p/car-rental/united-states/california/ontario/ontario-international-airport" target="_blank" class="rental-btn secondary">查看方案 →</a>
-            </div>
+                <div style="background: var(--warm-white); border: 1px solid var(--sand); padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: left;">
+                    <div style="font-size: 11px; color: var(--olive); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">取還車地點</div>
+                    <div style="font-weight: 600; color: var(--charcoal); margin-bottom: 5px;">Ontario International Airport (ONT)</div>
+                    <div style="font-size: 13px; color: var(--olive-dark);">車主將遠端解鎖車輛</div>
+                </div>
 
-            <div class="rental-card">
-                <div class="rental-provider">其他 Turo</div>
-                <div class="rental-price">$53-94<span>/天</span></div>
-                <ul class="rental-features">
-                    <li>Erwin Y. (Ontario) $53/天</li>
-                    <li>Jiyeon K. (Ontario) $94/天</li>
-                    <li>Fadi S. (Riverside) $69/天</li>
-                    <li>多種選擇</li>
-                    <li>需確認座位數</li>
-                </ul>
-                <a href="https://turo.com/us/en/car-rental/united-states/ontario-ca/tesla" target="_blank" class="rental-btn secondary">搜尋更多 →</a>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; margin-bottom: 25px;">
+                    <div>
+                        <div style="font-size: 11px; color: var(--olive); text-transform: uppercase; letter-spacing: 0.5px;">車主</div>
+                        <div style="font-weight: 600; color: var(--charcoal);">Daniel Cardona</div>
+                        <div style="font-size: 13px; color: var(--olive-dark);">391 trips · 2018年加入</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; color: var(--olive); text-transform: uppercase; letter-spacing: 0.5px;">聯絡電話</div>
+                        <div style="font-weight: 600; color: var(--charcoal);">+1 626-662-9319</div>
+                    </div>
+                </div>
+
+                <div style="background: #E8F5E9; border: 1px solid #A5D6A7; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left;">
+                    <div style="font-size: 11px; color: #2E7D32; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">加購項目</div>
+                    <div style="font-weight: 600; color: #1B5E20;">兒童安全座椅 × 2</div>
+                    <div style="font-size: 13px; color: #388E3C;">$25/趟（已包含）</div>
+                </div>
+
+                <div style="border-top: 1px solid var(--sand); padding-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="text-align: left;">
+                        <div style="font-size: 11px; color: var(--olive);">訂單編號</div>
+                        <div style="font-weight: 600; color: var(--charcoal);">#83267819</div>
+                    </div>
+                    <a href="https://turo.com/en/reservations" target="_blank" class="rental-btn" style="margin: 0;">查看訂單 →</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1650,187 +1666,183 @@
                 date: "2026-02-06",
                 dayOfWeek: "五",
                 title: "抵達加州",
-                location: "Ontario",
+                location: "Midway City",
                 spots: [
-                    { time: "16:50", name: "Ontario International Airport", icon: "✈️", desc: "抵達安大略機場 Terminal 1", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
-                    { time: "17:30", name: "取車 Tesla Model Y", icon: "🚗", desc: "Turo 取車 (Justin B.)", lat: 34.056, lng: -117.601 },
-                    { time: "19:00", name: "住宿 Check-in", icon: "🏠", desc: "休息調時差", lat: 34.056, lng: -117.601 }
+                    { time: "16:50", name: "Ontario International Airport", icon: "✈️", desc: "抵達安大略機場", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
+                    { time: "18:00", name: "取車 & 通勤", icon: "🚗", desc: "Turo 取車 Tesla Model Y (Daniel Cardona)", lat: 34.056, lng: -117.601 },
+                    { time: "19:30", name: "In-N-Out Burger", icon: "🍔", desc: "加州經典漢堡 · Animal Style 必點！", lat: 33.7519, lng: -117.9952, maps: "https://maps.google.com/?q=In-N-Out+Burger+Westminster", type: "restaurant", mustVisit: true },
+                    { time: "21:00", name: "Airbnb Check-in", icon: "🏠", desc: "Midway City 住宿 · 8372 Roosevelt Avenue", lat: 33.7517, lng: -117.9895 }
                 ],
-                tips: "國際線提領行李約 30-45 分鐘"
+                tips: "第一餐就吃 In-N-Out！別忘了點 Animal Style 薯條"
             },
             {
                 day: 2,
                 date: "2026-02-07",
                 dayOfWeek: "六",
-                title: "洛杉磯探索日",
+                title: "Getty Center & 海灘",
                 location: "Los Angeles",
                 spots: [
-                    { time: "09:00", name: "Santa Monica Pier", icon: "🎡", desc: "經典太平洋公園摩天輪，Route 66 終點", lat: 34.0086, lng: -118.4977, maps: "https://maps.google.com/?q=Santa+Monica+Pier", website: "https://santamonicapier.org" },
-                    { time: "11:00", name: "Venice Beach", icon: "🏖️", desc: "海濱步道、街頭表演、Muscle Beach", lat: 33.9850, lng: -118.4695, maps: "https://maps.google.com/?q=Venice+Beach+Boardwalk" },
-                    { time: "13:00", name: "Superba", icon: "🍽️", desc: "California Brunch · 家庭友善 · 戶外座位", lat: 33.9930, lng: -118.4680, maps: "https://maps.google.com/?q=Superba+Venice", website: "https://superbafood.com", type: "restaurant" },
-                    { time: "15:00", name: "The Grove", icon: "🛍️", desc: "LA最美購物中心 · 免費有軌電車 · 噴泉表演", lat: 34.0720, lng: -118.3578, maps: "https://maps.google.com/?q=The+Grove+Los+Angeles", website: "https://thegrovela.com" },
-                    { time: "18:00", name: "Griffith Observatory", icon: "🔭", desc: "免費入場 · 看夕陽 · Hollywood Sign 最佳角度", lat: 34.1184, lng: -118.3004, maps: "https://maps.google.com/?q=Griffith+Observatory", website: "https://griffithobservatory.org" },
-                    { time: "20:00", name: "Carousel", icon: "🍽️", desc: "黎巴嫩家庭式料理 · 大份量分享", lat: 34.1518, lng: -118.2532, maps: "https://maps.google.com/?q=Carousel+Restaurant+Glendale", type: "restaurant" }
+                    { time: "09:30", name: "Getty Center", icon: "🏛️", desc: "免費世界級美術館 · 建築大師 Richard Meier 設計", lat: 34.0780, lng: -118.4741, maps: "https://maps.google.com/?q=Getty+Center", website: "https://www.getty.edu/visit/center", mustVisit: true },
+                    { time: "13:00", name: "Santa Monica", icon: "🏖️", desc: "Santa Monica Pier · Route 66 終點 · 海濱散步", lat: 34.0086, lng: -118.4977, maps: "https://maps.google.com/?q=Santa+Monica+Pier", website: "https://santamonicapier.org" },
+                    { time: "15:30", name: "Venice Beach", icon: "🎡", desc: "海濱步道 · 街頭表演 · Muscle Beach", lat: 33.9850, lng: -118.4695, maps: "https://maps.google.com/?q=Venice+Beach+Boardwalk" },
+                    { time: "18:00", name: "Chipotle", icon: "🌯", desc: "墨西哥捲餅快餐", lat: 33.9870, lng: -118.4720, maps: "https://maps.google.com/?q=Chipotle+Venice", type: "restaurant" },
+                    { time: "20:00", name: "Griffith Observatory", icon: "🔭", desc: "格里斐斯天文台 · 免費入場 · 俯瞰洛杉磯夜景 · Hollywood Sign", lat: 34.1184, lng: -118.3004, maps: "https://maps.google.com/?q=Griffith+Observatory", website: "https://griffithobservatory.org", mustVisit: true }
                 ],
-                tips: "Griffith Observatory 停車位有限，建議提早到"
+                tips: "Griffith Observatory 停車位有限，建議傍晚前到 · 天文台 22:00 關門"
             },
             {
                 day: 3,
                 date: "2026-02-08",
                 dayOfWeek: "日",
-                title: "好萊塢 & Tesla Diner",
-                location: "Hollywood",
-                highlight: "🚗 Tesla Diner",
+                title: "Old Town & NBA",
+                location: "Los Angeles",
+                highlight: "🏀 LAL vs OKC",
                 spots: [
-                    { time: "10:30", name: "Hollywood Walk of Fame", icon: "⭐", desc: "星光大道 · TCL中國戲院 · 杜比劇院", lat: 34.1016, lng: -118.3267, maps: "https://maps.google.com/?q=Hollywood+Walk+of+Fame" },
-                    { time: "12:30", name: "Tesla Supercharger Diner", icon: "🚗", desc: "太空飛碟造型 · 66呎LED螢幕 · 24/7營業 · Burger $13.50", lat: 34.0903, lng: -118.3461, maps: "https://maps.google.com/?q=7001+Santa+Monica+Blvd+Hollywood", website: "https://www.tesla.com/supercharger", type: "restaurant", mustVisit: true },
-                    { time: "15:00", name: "Rodeo Drive", icon: "💎", desc: "比佛利山莊精品街 · 免費街拍", lat: 34.0674, lng: -118.4003, maps: "https://maps.google.com/?q=Rodeo+Drive+Beverly+Hills" },
-                    { time: "17:30", name: "Getty Center", icon: "🏛️", desc: "免費世界級美術館 · 建築大師 Richard Meier 設計", lat: 34.0780, lng: -118.4741, maps: "https://maps.google.com/?q=Getty+Center", website: "https://www.getty.edu/visit/center" },
-                    { time: "20:00", name: "Grand Central Market", icon: "🍽️", desc: "百年美食廣場 · Eggslut · McConnell's 冰淇淋", lat: 34.0507, lng: -118.2491, maps: "https://maps.google.com/?q=Grand+Central+Market+LA", website: "https://grandcentralmarket.com", type: "restaurant" }
+                    { time: "10:00", name: "Old Town Pasadena", icon: "🏘️", desc: "歷史街區 · 精品店 · 餐廳 · 悠閒逛街", lat: 34.1478, lng: -118.1445, maps: "https://maps.google.com/?q=Old+Town+Pasadena", website: "https://oldpasadena.org" },
+                    { time: "13:00", name: "午餐", icon: "🍽️", desc: "Old Town 附近用餐", lat: 34.1478, lng: -118.1445, type: "restaurant" },
+                    { time: "15:00", name: "前往球場", icon: "🚗", desc: "提早出發避開塞車", lat: 34.0430, lng: -118.2673 },
+                    { time: "19:00", name: "Lakers vs Thunder", icon: "🏀", desc: "Crypto.com Arena · 4人觀賽 (Nelsen, 小A, 盧冠宇, 小B)", lat: 34.0430, lng: -118.2673, maps: "https://maps.google.com/?q=Crypto.com+Arena", website: "https://www.cryptoarena.com", mustVisit: true }
                 ],
-                tips: "Tesla Diner 可用 Tesla 車內螢幕點餐！停車同時充電超方便"
+                tips: "長輩幫忙照顧小朋友 · 比賽約 2.5 小時 · LA Downtown 停車建議用 SpotHero app"
             },
             {
                 day: 4,
                 date: "2026-02-09",
                 dayOfWeek: "一",
-                title: "NBA 湖人 vs 雷霆",
-                location: "Downtown LA",
-                highlight: "🏀 NBA Game",
-                spots: [
-                    { time: "10:00", name: "悠閒早午餐", icon: "☕", desc: "睡到自然醒，附近餐廳 brunch", lat: 34.0522, lng: -118.2437 },
-                    { time: "12:00", name: "LACMA", icon: "🎨", desc: "洛杉磯藝術博物館 · Urban Light 路燈裝置藝術", lat: 34.0639, lng: -118.3592, maps: "https://maps.google.com/?q=LACMA", website: "https://www.lacma.org" },
-                    { time: "15:00", name: "Little Tokyo", icon: "🍜", desc: "日本城 · 拉麵 · 日式甜點 · 動漫周邊", lat: 34.0502, lng: -118.2405, maps: "https://maps.google.com/?q=Little+Tokyo+Los+Angeles" },
-                    { time: "17:00", name: "Brent's Deli", icon: "🍽️", desc: "經典美式 Deli · 超大份量三明治", lat: 34.1784, lng: -118.5310, maps: "https://maps.google.com/?q=Brents+Deli+Northridge", type: "restaurant" },
-                    { time: "19:00", name: "Lakers vs Thunder", icon: "🏀", desc: "Crypto.com Arena · 4人觀賽 (Nelsen, 小A, 盧冠宇, 小B)", lat: 34.0430, lng: -118.2673, maps: "https://maps.google.com/?q=Crypto.com+Arena", website: "https://www.cryptoarena.com", mustVisit: true }
-                ],
-                tips: "長輩幫忙照顧小朋友 · 比賽約 2.5 小時 · 建議提早入場感受氛圍"
-            },
-            {
-                day: 5,
-                date: "2026-02-10",
-                dayOfWeek: "二",
                 title: "迪士尼樂園",
                 location: "Anaheim",
                 highlight: "🏰 全員出動",
                 spots: [
-                    { time: "07:00", name: "GCH Craftsman Grill", icon: "🍳", desc: "Grand Californian Hotel · 米奇鬆餅", lat: 33.8087, lng: -117.9219, maps: "https://maps.google.com/?q=Grand+Californian+Hotel", type: "restaurant" },
                     { time: "08:00", name: "Disneyland Park", icon: "🏰", desc: "全員11人入園 · 陳葴(2歲)免費 · 農曆新年慶典中", lat: 33.8121, lng: -117.9190, maps: "https://maps.google.com/?q=Disneyland+Park+Anaheim", website: "https://disneyland.disney.go.com", mustVisit: true },
-                    { time: "12:00", name: "Carnation Café", icon: "🍽️", desc: "Main Street 經典美式 · Walt Disney 最愛", lat: 33.8110, lng: -117.9189, type: "restaurant" },
+                    { time: "12:00", name: "園區午餐", icon: "🍽️", desc: "Main Street 或 Adventureland 用餐", lat: 33.8110, lng: -117.9189, type: "restaurant" },
                     { time: "18:00", name: "Blue Bayou", icon: "🍽️", desc: "Pirates of the Caribbean 旁 · 需預約 · 夜晚氛圍超棒", lat: 33.8114, lng: -117.9209, website: "https://disneyland.disney.go.com/dining/disneyland/blue-bayou-restaurant/", type: "restaurant" },
                     { time: "21:00", name: "Wondrous Journeys 煙火", icon: "🎆", desc: "Main Street 最佳觀賞位置 · 提早30分鐘卡位", lat: 33.8121, lng: -117.9190 }
                 ],
                 tips: "善用 Rider Switch (有小小孩家庭) · Genie+ 可考慮購買 ($25/人) · 記得帶推車"
             },
             {
-                day: 6,
-                date: "2026-02-11",
-                dayOfWeek: "三",
+                day: 5,
+                date: "2026-02-10",
+                dayOfWeek: "二",
                 title: "前往聖地牙哥",
                 location: "San Diego",
                 spots: [
-                    { time: "08:00", name: "開車前往 San Diego", icon: "🚗", desc: "車程約 2 小時 (100 英里)", lat: 33.8121, lng: -117.9190 },
-                    { time: "11:30", name: "Richard Walker's Pancake House", icon: "🥞", desc: "超棒鬆餅 · 蘋果鬆餅招牌 · 兒童菜單", lat: 32.7232, lng: -117.1693, maps: "https://maps.google.com/?q=Richard+Walkers+Pancake+House+San+Diego", website: "https://richardwalkers.com", type: "restaurant" },
-                    { time: "13:00", name: "USS Midway Museum", icon: "⚓", desc: "退役航空母艦 · 2月博物館月半價！· 可登上甲板", lat: 32.7137, lng: -117.1751, maps: "https://maps.google.com/?q=USS+Midway+Museum", website: "https://www.midway.org" },
-                    { time: "16:00", name: "Seaport Village", icon: "🌊", desc: "海濱購物村 · 旋轉木馬 · 海景步道", lat: 32.7092, lng: -117.1702, maps: "https://maps.google.com/?q=Seaport+Village+San+Diego" },
-                    { time: "18:30", name: "Buon Appetito", icon: "🍝", desc: "Little Italy 得獎義大利餐廳 · 手工麵食", lat: 32.7233, lng: -117.1687, maps: "https://maps.google.com/?q=Buon+Appetito+San+Diego", website: "https://www.buonappetito.us", type: "restaurant" }
+                    { time: "09:00", name: "通勤出發", icon: "🚗", desc: "從 Midway City 前往 San Diego · 車程約 1.5 小時", lat: 33.7517, lng: -117.9895 },
+                    { time: "12:00", name: "PHO 越南河粉", icon: "🍜", desc: "San Diego 午餐", lat: 32.7157, lng: -117.1611, maps: "https://maps.google.com/?q=Pho+San+Diego", type: "restaurant" },
+                    { time: "14:00", name: "Balboa Park", icon: "🌳", desc: "1,200英畝城市公園 · 17座博物館 · 西班牙殖民風建築", lat: 32.7341, lng: -117.1446, maps: "https://maps.google.com/?q=Balboa+Park+San+Diego", website: "https://www.balboapark.org" },
+                    { time: "17:00", name: "San Diego Airbnb", icon: "🏠", desc: "入住 · 5206 San Bernardo Terrace", lat: 32.7400, lng: -117.1200 }
                 ],
                 tips: "2月是 San Diego Museum Month - 很多博物館半價！"
+            },
+            {
+                day: 6,
+                date: "2026-02-11",
+                dayOfWeek: "三",
+                title: "Sea World 海洋世界",
+                location: "San Diego",
+                highlight: "🐬 Sea World",
+                spots: [
+                    { time: "09:00", name: "SeaWorld San Diego", icon: "🐬", desc: "海洋主題樂園 · 企鵝館 · 海豚秀 · 雲霄飛車", lat: 32.7648, lng: -117.2265, maps: "https://maps.google.com/?q=SeaWorld+San+Diego", website: "https://seaworld.com/san-diego", mustVisit: true },
+                    { time: "12:30", name: "園區午餐", icon: "🍽️", desc: "SeaWorld 內用餐", lat: 32.7648, lng: -117.2265, type: "restaurant" },
+                    { time: "17:00", name: "Mission Beach", icon: "🏖️", desc: "海灘散步 · 看夕陽", lat: 32.7698, lng: -117.2528, maps: "https://maps.google.com/?q=Mission+Beach+San+Diego" },
+                    { time: "19:00", name: "晚餐", icon: "🍽️", desc: "San Diego 市區用餐", lat: 32.7157, lng: -117.1611, type: "restaurant" }
+                ],
+                tips: "SeaWorld 建議買快速通關 · 企鵝館和 Orca Encounter 必看"
             },
             {
                 day: 7,
                 date: "2026-02-12",
                 dayOfWeek: "四",
-                title: "聖地牙哥深度遊",
-                location: "La Jolla",
+                title: "San Diego Zoo & Balboa Park",
+                location: "San Diego",
+                highlight: "🦁 動物園",
                 spots: [
-                    { time: "08:00", name: "The Cottage", icon: "🍳", desc: "La Jolla 海邊小屋早餐 · 排隊名店", lat: 32.8507, lng: -117.2713, maps: "https://maps.google.com/?q=The+Cottage+La+Jolla", type: "restaurant" },
-                    { time: "10:00", name: "San Diego Zoo", icon: "🦁", desc: "世界級動物園 · 熊貓館 · 可搭園內巴士", lat: 32.7353, lng: -117.1490, maps: "https://maps.google.com/?q=San+Diego+Zoo", website: "https://zoo.sandiegozoo.org" },
-                    { time: "13:00", name: "Burger Lounge", icon: "🍔", desc: "有機草飼牛漢堡 · 兒童套餐含冰淇淋", lat: 32.8505, lng: -117.2709, maps: "https://maps.google.com/?q=Burger+Lounge+La+Jolla", type: "restaurant" },
-                    { time: "15:00", name: "La Jolla Cove", icon: "🦭", desc: "海豹海獅聚集地 · 2月育幼季 · 保持50呎距離", lat: 32.8508, lng: -117.2711, maps: "https://maps.google.com/?q=La+Jolla+Cove" },
-                    { time: "17:00", name: "Birch Aquarium", icon: "🐠", desc: "Scripps 海洋研究所附設水族館 · 觸摸池", lat: 32.8663, lng: -117.2512, maps: "https://maps.google.com/?q=Birch+Aquarium", website: "https://aquarium.ucsd.edu" },
-                    { time: "19:00", name: "Duke's La Jolla", icon: "🌴", desc: "夏威夷風海景餐廳 · 兒童菜單有遊戲", lat: 32.8503, lng: -117.2713, maps: "https://maps.google.com/?q=Dukes+La+Jolla", website: "https://www.dukeslajolla.com", type: "restaurant" }
+                    { time: "09:00", name: "San Diego Zoo", icon: "🦁", desc: "世界級動物園 · 熊貓館 · 可搭園內巴士", lat: 32.7353, lng: -117.1490, maps: "https://maps.google.com/?q=San+Diego+Zoo", website: "https://zoo.sandiegozoo.org", mustVisit: true },
+                    { time: "12:30", name: "Albert's Restaurant", icon: "🍽️", desc: "Zoo 內的景觀餐廳", lat: 32.7353, lng: -117.1490, type: "restaurant" },
+                    { time: "15:00", name: "Balboa Park", icon: "🌳", desc: "1,200英畝城市公園 · 17座博物館 · 西班牙殖民風建築", lat: 32.7341, lng: -117.1446, maps: "https://maps.google.com/?q=Balboa+Park+San+Diego", website: "https://www.balboapark.org" },
+                    { time: "18:00", name: "晚餐", icon: "🍽️", desc: "Hillcrest 或 North Park 用餐", lat: 32.7500, lng: -117.1600, type: "restaurant" }
                 ],
-                tips: "賞鯨季節中！可考慮參加賞鯨團"
+                tips: "動物園很大，建議搭乘園內 Skyfari 纜車俯瞰全園"
             },
             {
                 day: 8,
                 date: "2026-02-13",
                 dayOfWeek: "五",
-                title: "前往棕櫚泉",
-                location: "Palm Springs",
+                title: "前往 Eastvale",
+                location: "Eastvale",
                 spots: [
-                    { time: "08:00", name: "開車前往 Palm Springs", icon: "🚗", desc: "車程約 2.5 小時 · 穿越沙漠", lat: 32.7157, lng: -117.1611 },
-                    { time: "11:00", name: "Palm Springs Aerial Tramway", icon: "🚡", desc: "世界最大旋轉纜車 · 山頂比山下低30-40°F · 可能有雪！", lat: 33.8277, lng: -116.6146, maps: "https://maps.google.com/?q=Palm+Springs+Aerial+Tramway", website: "https://www.pstramway.com" },
-                    { time: "13:00", name: "Peaks Restaurant (山頂)", icon: "🍽️", desc: "山頂景觀餐廳 · 海拔 8,516 呎", lat: 33.8154, lng: -116.6345, type: "restaurant" },
-                    { time: "17:00", name: "Downtown Palm Springs", icon: "🌴", desc: "棕櫚峽谷大道散步 · Mid-century 建築 · 復古風情", lat: 33.8303, lng: -116.5453, maps: "https://maps.google.com/?q=Palm+Canyon+Drive+Palm+Springs" },
-                    { time: "19:00", name: "Las Casuelas Terraza", icon: "🌮", desc: "經典墨西哥菜 · 戶外 patio · 價格實惠", lat: 33.8299, lng: -116.5457, maps: "https://maps.google.com/?q=Las+Casuelas+Terraza", website: "https://www.lascasuelas.com", type: "restaurant" }
+                    { time: "09:00", name: "通勤出發", icon: "🚗", desc: "從 San Diego 返回洛杉磯區域 · 車程約 1.5 小時", lat: 32.7157, lng: -117.1611 },
+                    { time: "12:00", name: "Ontario Mills Outlet", icon: "🛍️", desc: "200+ 品牌 · Nike, Coach, Gap, H&M 等", lat: 34.0584, lng: -117.5574, maps: "https://maps.google.com/?q=Ontario+Mills", website: "https://www.simon.com/mall/ontario-mills", mustVisit: true },
+                    { time: "15:00", name: "繼續購物", icon: "🛒", desc: "Ontario Mills 超大！慢慢逛", lat: 34.0584, lng: -117.5574 },
+                    { time: "18:00", name: "Eastvale Airbnb", icon: "🏠", desc: "入住 · 14433 Eagle River Rd", lat: 33.9636, lng: -117.5631 },
+                    { time: "19:30", name: "晚餐", icon: "🍽️", desc: "Eastvale 附近用餐", lat: 33.9636, lng: -117.5631, type: "restaurant" }
                 ],
-                tips: "Tramway 票價：成人 $30.95、兒童(3-10) $18.95 · 山頂記得帶外套！"
+                tips: "Ontario Mills 是加州最大 Outlet 之一，建議穿舒適的鞋子"
             },
             {
                 day: 9,
                 date: "2026-02-14",
                 dayOfWeek: "六",
-                title: "棕櫚泉 · 情人節",
-                location: "Palm Springs",
-                highlight: "💕 Valentine's Day",
+                title: "Big Bear Lake 大熊湖",
+                location: "Big Bear Lake",
+                highlight: "❄️ 雪地探險",
                 spots: [
-                    { time: "09:00", name: "Elmer's Palm Springs", icon: "🥞", desc: "經典早餐 · 德式蘋果鬆餅招牌", lat: 33.8241, lng: -116.5463, maps: "https://maps.google.com/?q=Elmers+Restaurant+Palm+Springs", type: "restaurant" },
-                    { time: "10:30", name: "Living Desert Zoo", icon: "🦒", desc: "沙漠動物園 · 可餵長頸鹿！· 澳洲區近距離接觸袋鼠", lat: 33.7261, lng: -116.3673, maps: "https://maps.google.com/?q=Living+Desert+Zoo", website: "https://www.livingdesert.org" },
-                    { time: "13:00", name: "LuLu California Bistro", icon: "🍽️", desc: "OpenTable 百大餐廳 · 創意加州料理", lat: 33.8299, lng: -116.5455, maps: "https://maps.google.com/?q=LuLu+California+Bistro+Palm+Springs", type: "restaurant" },
-                    { time: "15:00", name: "Children's Discovery Museum", icon: "🎨", desc: "兒童探索博物館 · 互動展覽 · 適合小朋友", lat: 33.7754, lng: -116.4553, maps: "https://maps.google.com/?q=Childrens+Discovery+Museum+Rancho+Mirage", website: "https://cdmod.org" },
-                    { time: "19:30", name: "Eight4Nine", icon: "💕", desc: "情人節晚餐 · 時尚美式料理 · 需預約", lat: 33.8303, lng: -116.5467, maps: "https://maps.google.com/?q=Eight4Nine+Palm+Springs", website: "https://eight4nine.com", type: "restaurant", mustVisit: true }
+                    { time: "08:00", name: "開車前往 Big Bear", icon: "🚗", desc: "車程約 1.5 小時 · 山路蜿蜒 · 可能需要雪鏈", lat: 33.9636, lng: -117.5631 },
+                    { time: "10:30", name: "Big Bear Village", icon: "🛍️", desc: "漫步購物 · 手工藝品 · 湖景", lat: 34.2435, lng: -116.8908, maps: "https://maps.google.com/?q=Big+Bear+Village" },
+                    { time: "12:00", name: "Teddy Bear Restaurant", icon: "🐻", desc: "家庭式餐廳 · 招牌雞肉派", lat: 34.2435, lng: -116.8908, maps: "https://maps.google.com/?q=Teddy+Bear+Restaurant+Big+Bear", type: "restaurant" },
+                    { time: "14:00", name: "雪地玩耍", icon: "⛄", desc: "堆雪人 · 打雪仗 · 享受白雪世界", lat: 34.2439, lng: -116.9114, mustVisit: true },
+                    { time: "17:00", name: "返回 Eastvale", icon: "🚗", desc: "下山前注意天黑後山路較危險", lat: 33.9636, lng: -117.5631 }
                 ],
-                tips: "情人節餐廳一定要提前預約！Living Desert 長頸鹿餵食需額外購票"
+                tips: "2月 Big Bear 通常有雪！海拔 6,750 呎，記得帶保暖衣物"
             },
             {
                 day: 10,
                 date: "2026-02-15",
                 dayOfWeek: "日",
-                title: "前往大熊湖",
-                location: "Big Bear Lake",
+                title: "棕櫚泉 & Outlet",
+                location: "Palm Springs",
+                highlight: "🚡 空中纜車",
                 spots: [
-                    { time: "08:00", name: "開車前往 Big Bear", icon: "🚗", desc: "車程約 2 小時 · 山路蜿蜒 · 可能需要雪鏈", lat: 33.8303, lng: -116.5453 },
-                    { time: "11:00", name: "Big Bear 小木屋 Check-in", icon: "🏠", desc: "入住溫馨小木屋", lat: 34.2439, lng: -116.9114 },
-                    { time: "12:00", name: "Teddy Bear Restaurant", icon: "🐻", desc: "家庭式餐廳 · 招牌雞肉派", lat: 34.2435, lng: -116.8908, maps: "https://maps.google.com/?q=Teddy+Bear+Restaurant+Big+Bear", type: "restaurant" },
-                    { time: "14:00", name: "Big Bear Village", icon: "🛍️", desc: "漫步購物 · 手工藝品 · 湖景", lat: 34.2435, lng: -116.8908, maps: "https://maps.google.com/?q=Big+Bear+Village" },
-                    { time: "16:00", name: "雪地玩耍", icon: "⛄", desc: "堆雪人 · 打雪仗 · 享受白雪世界", lat: 34.2439, lng: -116.9114 },
-                    { time: "19:00", name: "Peppercorn Grille", icon: "🍽️", desc: "山區高級餐廳 · 牛排海鮮", lat: 34.2434, lng: -116.8929, maps: "https://maps.google.com/?q=Peppercorn+Grille+Big+Bear", website: "https://www.peppercorngrille.com", type: "restaurant" }
+                    { time: "08:30", name: "開車前往 Palm Springs", icon: "🚗", desc: "車程約 1 小時", lat: 33.9636, lng: -117.5631 },
+                    { time: "10:00", name: "Palm Springs Aerial Tramway", icon: "🚡", desc: "世界最大旋轉纜車 · 山頂比山下低30-40°F · 可能有雪！", lat: 33.8277, lng: -116.6146, maps: "https://maps.google.com/?q=Palm+Springs+Aerial+Tramway", website: "https://www.pstramway.com", mustVisit: true },
+                    { time: "13:00", name: "Peaks Restaurant (山頂)", icon: "🍽️", desc: "山頂景觀餐廳 · 海拔 8,516 呎", lat: 33.8154, lng: -116.6345, type: "restaurant" },
+                    { time: "15:30", name: "Desert Hills Premium Outlets", icon: "🛍️", desc: "Cabazon 精品 Outlet · Gucci, Prada, Burberry 等", lat: 33.9228, lng: -116.8171, maps: "https://maps.google.com/?q=Desert+Hills+Premium+Outlets", website: "https://www.premiumoutlets.com/outlet/desert-hills" },
+                    { time: "19:00", name: "返回 Eastvale", icon: "🚗", desc: "車程約 45 分鐘", lat: 33.9636, lng: -117.5631 }
                 ],
-                tips: "海拔 6,750 呎 · 多喝水預防高山症 · 山路請小心駕駛"
+                tips: "Tramway 票價：成人 $30.95、兒童(3-10) $18.95 · 山頂記得帶外套！"
             },
             {
                 day: 11,
                 date: "2026-02-16",
                 dayOfWeek: "一",
-                title: "大熊湖雪地日",
-                location: "Big Bear Lake",
-                highlight: "⛷️ 滑雪 & 雪盆",
+                title: "除夕",
+                location: "Eastvale",
+                highlight: "🧧 農曆除夕",
                 spots: [
-                    { time: "08:00", name: "Grizzly Manor Café", icon: "🥞", desc: "經典早餐店 · 份量超大 · 排隊名店", lat: 34.2434, lng: -116.8940, maps: "https://maps.google.com/?q=Grizzly+Manor+Cafe+Big+Bear", type: "restaurant" },
-                    { time: "10:00", name: "Snow Summit", icon: "⛷️", desc: "滑雪場 · 初學者友善 · 有滑雪學校", lat: 34.2304, lng: -116.8680, maps: "https://maps.google.com/?q=Snow+Summit+Big+Bear", website: "https://www.bigbearmountainresort.com" },
-                    { time: "14:00", name: "Grizzly Ridge Tube Park", icon: "🛷", desc: "雪盆樂園 · 全家歡樂 · 建議線上預約！", lat: 34.2304, lng: -116.8680, website: "https://www.bigbearmountainresort.com/winter/tickets-passes/tubing", mustVisit: true },
-                    { time: "19:00", name: "Oakside Restaurant", icon: "🍽️", desc: "美式料理 · 週末有現場音樂", lat: 34.2430, lng: -116.8932, maps: "https://maps.google.com/?q=Oakside+Big+Bear", type: "restaurant" },
-                    { time: "21:00", name: "Glow Tubing", icon: "🌟", desc: "夜間雪盆 · LED 燈光 · 音樂派對 (選)", lat: 34.2304, lng: -116.8680, website: "https://www.bigbearmountainresort.com/winter/tickets-passes/tubing" }
+                    { time: "10:00", name: "悠閒早晨", icon: "☕", desc: "睡到自然醒 · 準備年夜飯食材", lat: 33.9636, lng: -117.5631 },
+                    { time: "12:00", name: "99 Ranch Market", icon: "🛒", desc: "大華超市採買年菜食材", lat: 33.9800, lng: -117.5800, maps: "https://maps.google.com/?q=99+Ranch+Market" },
+                    { time: "15:00", name: "準備年夜飯", icon: "👨‍🍳", desc: "大家一起動手做年菜", lat: 33.9636, lng: -117.5631 },
+                    { time: "18:00", name: "年夜飯", icon: "🧧", desc: "團圓飯 · 恭喜發財！", lat: 33.9636, lng: -117.5631, mustVisit: true },
+                    { time: "21:00", name: "守歲", icon: "🎊", desc: "看春晚 · 發紅包 · 迎接新年", lat: 33.9636, lng: -117.5631 }
                 ],
-                tips: "雪盆 (Tubing) 現場排隊很長，強烈建議線上預約！"
+                tips: "2026 農曆新年是 2/17 (初一)，除夕是 2/16"
             },
             {
                 day: 12,
                 date: "2026-02-17",
                 dayOfWeek: "二",
-                title: "大熊湖悠閒日",
-                location: "Big Bear Lake",
+                title: "初一 · 悠閒日",
+                location: "Eastvale",
+                highlight: "🐍 蛇年初一",
+                suggestedBy: "爾森管家",
                 spots: [
-                    { time: "09:00", name: "悠閒早餐", icon: "☕", desc: "睡到自然醒", lat: 34.2439, lng: -116.9114 },
-                    { time: "10:30", name: "Big Bear Alpine Zoo", icon: "🐻", desc: "高山動物園 · 救援動物 · 教育性質", lat: 34.2650, lng: -116.8400, maps: "https://maps.google.com/?q=Big+Bear+Alpine+Zoo", website: "https://www.bigbearzoo.org" },
-                    { time: "12:30", name: "Saucy Mama's Pizza", icon: "🍕", desc: "Village 人氣披薩店 · 手工現做", lat: 34.2436, lng: -116.8917, maps: "https://maps.google.com/?q=Saucys+Pizza+Big+Bear", type: "restaurant" },
-                    { time: "14:00", name: "Bowling Barn", icon: "🎳", desc: "保齡球 · 溜冰 · 電玩 · 雨天備案", lat: 34.2504, lng: -116.8695, maps: "https://maps.google.com/?q=Bowling+Barn+Big+Bear", website: "https://www.bowlingbarn.com" },
-                    { time: "16:00", name: "North Pole Sweets", icon: "🍬", desc: "老式糖果店 · 太妃糖 · 聖誕商品", lat: 34.2434, lng: -116.8923, maps: "https://maps.google.com/?q=North+Pole+Fudge+Big+Bear" },
-                    { time: "18:30", name: "The Pines Lakefront", icon: "🌲", desc: "1920年代經典湖景餐廳 · 需預約", lat: 34.2465, lng: -116.8880, maps: "https://maps.google.com/?q=Pines+Lakefront+Big+Bear", website: "https://www.thepineslakefront.com", type: "restaurant" }
+                    { time: "10:00", name: "睡到自然醒", icon: "☕", desc: "新年快樂！悠閒享用早餐", lat: 33.9636, lng: -117.5631 },
+                    { time: "12:00", name: "Victoria Gardens", icon: "🛍️", desc: "戶外購物中心 · 適合全家逛街散步 · 有兒童遊樂區", lat: 34.1064, lng: -117.5267, maps: "https://maps.google.com/?q=Victoria+Gardens+Rancho+Cucamonga", website: "https://victoriagardens.com" },
+                    { time: "13:30", name: "The Cheesecake Factory", icon: "🍽️", desc: "美式餐廳 · 兒童菜單豐富 · 起司蛋糕必點", lat: 34.1064, lng: -117.5267, maps: "https://maps.google.com/?q=Cheesecake+Factory+Victoria+Gardens", type: "restaurant" },
+                    { time: "15:30", name: "Scandia Amusement Park", icon: "🎢", desc: "家庭遊樂園 · 迷你高爾夫 · 碰碰車 · 適合5歲小朋友", lat: 34.1009, lng: -117.5876, maps: "https://maps.google.com/?q=Scandia+Ontario", website: "https://www.scandiafun.com" },
+                    { time: "18:00", name: "Din Tai Fung", icon: "🥟", desc: "鼎泰豐小籠包 · 長輩和小朋友都愛 · Arcadia 店", lat: 34.1320, lng: -118.0298, maps: "https://maps.google.com/?q=Din+Tai+Fung+Arcadia", website: "https://dintaifungusa.com", type: "restaurant" }
                 ],
-                tips: "The Pines Lakefront 晚餐很熱門，建議提前預約"
+                tips: "💡 爾森管家建議：初一適合輕鬆行程，Victoria Gardens 有戶外空間讓小朋友跑跳，Scandia 是本地人氣親子樂園"
             },
             {
                 day: 13,
@@ -1838,15 +1850,16 @@
                 dayOfWeek: "三",
                 title: "回程",
                 location: "Ontario",
+                highlight: "✈️ 回家",
                 spots: [
-                    { time: "09:00", name: "退房整理", icon: "🧳", desc: "打包行李、check-out", lat: 34.2439, lng: -116.9114 },
-                    { time: "10:00", name: "開車返回 Ontario", icon: "🚗", desc: "車程約 1.5 小時", lat: 34.2439, lng: -116.9114 },
-                    { time: "12:00", name: "Ontario Mills Outlet", icon: "🛍️", desc: "最後採購！200+ 品牌 · Nike, Coach, Gap 等", lat: 34.0584, lng: -117.5574, maps: "https://maps.google.com/?q=Ontario+Mills", website: "https://www.simon.com/mall/ontario-mills" },
-                    { time: "18:00", name: "還車", icon: "🚗", desc: "Turo 還車 · ONT 機場附近", lat: 34.056, lng: -117.601 },
-                    { time: "19:00", name: "Ontario Airport", icon: "✈️", desc: "抵達機場辦理登機 · Terminal 2", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
+                    { time: "10:00", name: "退房整理", icon: "🧳", desc: "打包行李 · check-out", lat: 33.9636, lng: -117.5631 },
+                    { time: "12:00", name: "午餐 & 最後採購", icon: "🍽️", desc: "Ontario Mills 最後逛一圈", lat: 34.0584, lng: -117.5574, maps: "https://maps.google.com/?q=Ontario+Mills" },
+                    { time: "16:00", name: "前往機場", icon: "🚗", desc: "預留充裕時間", lat: 34.056, lng: -117.601 },
+                    { time: "18:00", name: "Turo 還車", icon: "🔑", desc: "Ontario Airport 還車點 · 車主 Daniel 遠端鎖車", lat: 34.056, lng: -117.601 },
+                    { time: "19:00", name: "辦理登機", icon: "🛂", desc: "ONT Terminal · 國際線提前 3 小時", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
                     { time: "22:50", name: "CI23 起飛", icon: "🛫", desc: "返回台灣 · 飛行 14h40m · 2/20 05:30 抵達 TPE", lat: 34.056, lng: -117.601, mustVisit: true }
                 ],
-                tips: "國際航班請提前 3 小時到機場 · 預留還車時間"
+                tips: "國際航班請提前 3 小時到機場 · 預留還車時間 · 美好旅程圓滿結束！"
             }
         ];
 
@@ -1860,6 +1873,7 @@
                         <div class="day-info">
                             <h3>${day.title}</h3>
                             <span>${day.date.slice(5)} (${day.dayOfWeek}) · ${day.location}</span>
+                            ${day.suggestedBy ? `<span style="font-size: 0.7rem; color: var(--terracotta); display: block; margin-top: 2px;">🤖 ${day.suggestedBy}建議行程</span>` : ''}
                         </div>
                         ${day.highlight ? `<span class="day-highlight">${day.highlight}</span>` : ''}
                     </div>
