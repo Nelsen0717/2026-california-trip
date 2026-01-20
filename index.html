@@ -1449,13 +1449,12 @@
             <li><a href="#itinerary">行程</a></li>
             <li><a href="#map-section">地圖</a></li>
             <li><a href="#logistics">交通住宿</a></li>
-            <li><a href="#budget">預算</a></li>
-            <li><a href="#members">成員</a></li>
             <li><a href="#checklist">準備</a></li>
+            <li><a href="#members">成員</a></li>
         </ul>
     </nav>
 
-    <!-- Mobile Quick Nav (6 items for consistency) -->
+    <!-- Mobile Quick Nav (5 items) -->
     <nav class="quick-nav">
         <div class="quick-nav-inner">
             <a href="#itinerary" class="active">
@@ -1470,17 +1469,13 @@
                 <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 17h2l.64-2.55a3.5 3.5 0 0 0 0-1.9L20 9H4l-1.64 3.55a3.5 3.5 0 0 0 0 1.9L3 17h2"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span>
                 <span>交通</span>
             </a>
-            <a href="#budget">
-                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
-                <span>預算</span>
+            <a href="#checklist">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+                <span>準備</span>
             </a>
             <a href="#members">
                 <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
                 <span>成員</span>
-            </a>
-            <a href="#checklist">
-                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
-                <span>準備</span>
             </a>
         </div>
     </nav>
@@ -1790,18 +1785,18 @@
                     <span class="checklist-icon">🚗</span>
                     <span class="checklist-title">駕駛準備</span>
                 </div>
-                <div class="checklist-item" data-id="idl1">
+                <div class="checklist-item checked" data-id="idl1">
                     <div class="checkbox"></div>
                     <div class="item-text">
                         <strong>陳致瑋 國際駕照</strong>
-                        <small>NT$250 · 監理站親辦 · 攜帶身分證+駕照+2吋照片</small>
+                        <small>✅ 已完成</small>
                     </div>
                 </div>
-                <div class="checklist-item" data-id="idl2">
+                <div class="checklist-item checked" data-id="idl2">
                     <div class="checkbox"></div>
                     <div class="item-text">
                         <strong>詹涵宇 國際駕照</strong>
-                        <small>NT$250 · 監理站親辦</small>
+                        <small>✅ 已完成</small>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="rental">
@@ -1970,140 +1965,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Budget Estimate Section -->
-    <section class="section" id="budget">
-        <div class="section-header">
-            <p class="section-tag">Budget</p>
-            <h2 class="section-title">費用估算</h2>
-        </div>
-
-        <div style="max-width: 800px; margin: 0 auto;">
-            <!-- Ticket Costs -->
-            <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 20px;">
-                <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 16px; font-size: 1.1rem;">🎫 門票費用（2026 官方價格）</div>
-
-                <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <!-- Disneyland -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
-                        <div>
-                            <div style="font-weight: 600; color: var(--charcoal);">🏰 Disneyland (1-Day Park Hopper)</div>
-                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $174 · 兒童(3-9) $166 · Tier 0 價格</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$1,796</div>
-                            <div style="font-size: 11px; color: var(--olive);">11人 (含1免費)</div>
-                        </div>
-                    </div>
-
-                    <!-- San Diego Zoo -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
-                        <div>
-                            <div style="font-weight: 600; color: var(--charcoal);">🦁 San Diego Zoo</div>
-                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $70 · 兒童(3-11) $60 · 停車 $16</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$696</div>
-                            <div style="font-size: 11px; color: var(--olive);">11人 (含1免費)</div>
-                        </div>
-                    </div>
-
-                    <!-- SeaWorld -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
-                        <div>
-                            <div style="font-weight: 600; color: var(--charcoal);">🐬 SeaWorld San Diego</div>
-                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $66 · 兒童(3-9) $66 · FunEx 優惠價</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$660</div>
-                            <div style="font-size: 11px; color: var(--olive);">11人 (含1免費)</div>
-                        </div>
-                    </div>
-
-                    <!-- Palm Springs Tramway -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
-                        <div>
-                            <div style="font-weight: 600; color: var(--charcoal);">🚡 Palm Springs Aerial Tramway</div>
-                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $30.95 · 兒童(3-10) $18.95</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$292</div>
-                            <div style="font-size: 11px; color: var(--olive);">11人</div>
-                        </div>
-                    </div>
-
-                    <!-- Lakers -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
-                        <div>
-                            <div style="font-weight: 600; color: var(--charcoal);">🏀 Lakers vs Thunder (4人)</div>
-                            <div style="font-size: 12px; color: var(--olive-dark);">票價視座位而定</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$400</div>
-                            <div style="font-size: 11px; color: var(--olive);">估算</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 16px; padding-top: 16px; border-top: 2px solid var(--sand); display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-weight: 600; color: var(--charcoal);">門票小計</div>
-                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--terracotta-dark);">~$3,844 USD</div>
-                </div>
-            </div>
-
-            <!-- Other Costs -->
-            <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 16px; font-size: 1.1rem;">💰 其他預估費用</div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
-                        <div style="font-size: 24px;">🚗</div>
-                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">租車 (Turo)</div>
-                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">~$1,500</div>
-                        <div style="font-size: 11px; color: var(--olive);">13天 Tesla Model Y</div>
-                    </div>
-                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
-                        <div style="font-size: 24px;">⛽</div>
-                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">充電/油費</div>
-                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">~$150</div>
-                        <div style="font-size: 11px; color: var(--olive);">Tesla Supercharger</div>
-                    </div>
-                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
-                        <div style="font-size: 24px;">🍽️</div>
-                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">餐飲</div>
-                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">~$3,000</div>
-                        <div style="font-size: 11px; color: var(--olive);">11人 x 13天</div>
-                    </div>
-                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
-                        <div style="font-size: 24px;">🛍️</div>
-                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">購物</div>
-                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">彈性</div>
-                        <div style="font-size: 11px; color: var(--olive);">Outlet 血拼</div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 20px; padding: 16px; background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark)); border-radius: 12px; color: white;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-weight: 700; font-size: 1.1rem;">預估總費用</div>
-                            <div style="font-size: 12px; opacity: 0.9;">不含機票、住宿、購物</div>
-                        </div>
-                        <div style="font-size: 1.8rem; font-weight: 700;">~$8,500 USD</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-top: 16px; font-size: 11px; color: var(--olive); text-align: center;">
-                💡 價格資料來源：
-                <a href="https://disneyland.disney.go.com/" target="_blank" style="color: var(--terracotta);">Disneyland</a>、
-                <a href="https://zoo.sandiegozoo.org/tickets" target="_blank" style="color: var(--terracotta);">San Diego Zoo</a>、
-                <a href="https://seaworld.com/san-diego/tickets/" target="_blank" style="color: var(--terracotta);">SeaWorld</a>、
-                <a href="https://www.pstramway.com/" target="_blank" style="color: var(--terracotta);">Palm Springs Tramway</a>
-                · 更新日期 2026-01
-            </div>
-        </div>
-    </section>
-
 
     <!-- Footer -->
     <footer class="footer">
