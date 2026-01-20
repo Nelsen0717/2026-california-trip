@@ -313,6 +313,192 @@
             .countdown-num { font-size: 1.5rem; }
         }
 
+        /* ===== WEATHER WIDGET ===== */
+        .weather-widget {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 998;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            font-size: 12px;
+            max-width: 200px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+        }
+        .weather-widget.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .weather-current {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--sand);
+            margin-bottom: 8px;
+        }
+        .weather-current > span:first-child { font-size: 28px; }
+        .weather-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .weather-info #current-temp {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--charcoal);
+        }
+        .weather-info #current-desc {
+            font-size: 10px;
+            color: var(--olive);
+        }
+        .weather-forecast {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .forecast-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--olive-dark);
+            font-size: 11px;
+        }
+        .forecast-tip {
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid var(--sand);
+            font-size: 10px;
+            color: var(--olive);
+        }
+        @media (max-width: 768px) {
+            .weather-widget {
+                position: relative;
+                top: auto;
+                right: auto;
+                max-width: none;
+                margin: -20px 16px 20px;
+                opacity: 1;
+                transform: none;
+            }
+            .weather-current { justify-content: center; }
+            .weather-forecast { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 12px; }
+            .forecast-tip { width: 100%; text-align: center; }
+        }
+
+        /* ===== LOGISTICS TABS ===== */
+        .logistics-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--sand);
+            background: white;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--olive);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover {
+            border-color: var(--terracotta);
+            color: var(--terracotta);
+        }
+        .tab-btn.active {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logistics-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+        .logistics-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .logistics-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .logistics-icon.flight { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .logistics-icon.rental { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .logistics-icon.airbnb { background: linear-gradient(135deg, #FF385C, #E31C5F); }
+        .logistics-badge {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .logistics-badge.china-airlines { background: #7c3aed; color: white; }
+        .logistics-badge.turo { background: #593cfb; color: white; }
+        .logistics-badge.airbnb { background: #FF385C; color: white; }
+        .logistics-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+        .logistics-detail {
+            font-size: 13px;
+            color: var(--olive-dark);
+            margin-bottom: 4px;
+        }
+        .logistics-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--terracotta);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        .logistics-link:hover { text-decoration: underline; }
+        .logistics-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--olive-dark);
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .tab-btn { padding: 10px 18px; font-size: 13px; }
+            .logistics-card { padding: 18px; }
+        }
+
         /* ===== SECTIONS ===== */
         .section {
             padding: 80px 20px;
@@ -1261,36 +1447,40 @@
         <div class="top-nav-logo">CA '26</div>
         <ul class="top-nav-links">
             <li><a href="#itinerary">行程</a></li>
-            <li><a href="#members">成員</a></li>
-            <li><a href="#flights">航班</a></li>
-            <li><a href="#rental">租車</a></li>
-            <li><a href="#checklist">準備清單</a></li>
             <li><a href="#map-section">地圖</a></li>
+            <li><a href="#logistics">交通住宿</a></li>
+            <li><a href="#budget">預算</a></li>
+            <li><a href="#members">成員</a></li>
+            <li><a href="#checklist">準備</a></li>
         </ul>
     </nav>
 
-    <!-- Mobile Quick Nav -->
+    <!-- Mobile Quick Nav (6 items for consistency) -->
     <nav class="quick-nav">
         <div class="quick-nav-inner">
             <a href="#itinerary" class="active">
-                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
                 <span>行程</span>
             </a>
             <a href="#map-section">
                 <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span>
                 <span>地圖</span>
             </a>
-            <a href="#rental">
-                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 17h2l.64-2.55a3.5 3.5 0 0 0 0-1.9L20 9H4l-1.64 3.55a3.5 3.5 0 0 0 0 1.9L3 17h2"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M14 17H9"/><path d="M5 9l1.5-4.5h11L19 9"/></svg></span>
-                <span>租車</span>
+            <a href="#logistics">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 17h2l.64-2.55a3.5 3.5 0 0 0 0-1.9L20 9H4l-1.64 3.55a3.5 3.5 0 0 0 0 1.9L3 17h2"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span>
+                <span>交通</span>
+            </a>
+            <a href="#budget">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                <span>預算</span>
+            </a>
+            <a href="#members">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+                <span>成員</span>
             </a>
             <a href="#checklist">
                 <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
                 <span>準備</span>
-            </a>
-            <a href="#members">
-                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-                <span>成員</span>
             </a>
         </div>
     </nav>
@@ -1346,92 +1536,21 @@
         </div>
     </section>
 
-    <!-- Weather Section -->
-    <section class="section" id="weather" style="padding-bottom: 40px;">
-        <div class="section-header">
-            <p class="section-tag">Weather</p>
-            <h2 class="section-title">天氣預報</h2>
-        </div>
-
-        <div style="max-width: 800px; margin: 0 auto;">
-            <!-- Current Weather (Live API) -->
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 24px; margin-bottom: 20px; color: white;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                    <div>
-                        <div style="font-size: 12px; opacity: 0.8; margin-bottom: 4px;">📍 目前 Anaheim 天氣（即時）</div>
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span id="current-weather-icon" style="font-size: 48px;">🌤️</span>
-                            <div>
-                                <div style="font-size: 36px; font-weight: 700;" id="current-temp">--°C</div>
-                                <div style="font-size: 13px; opacity: 0.9;" id="current-desc">載入中...</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 12px; opacity: 0.7;">資料來源</div>
-                        <a href="https://open-meteo.com/" target="_blank" style="color: white; font-size: 11px; opacity: 0.8;">Open-Meteo API</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- February Climate Reference -->
-            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                <div style="font-weight: 600; color: var(--charcoal); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-                    <span>📊</span> 2月氣候參考（歷史平均）
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-                    <!-- Anaheim/Disneyland -->
-                    <div style="background: var(--cream); border-radius: 12px; padding: 16px;">
-                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">🏰 Anaheim (迪士尼)</div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="font-size: 24px; font-weight: 700; color: var(--charcoal);">20°C</div>
-                                <div style="font-size: 11px; color: var(--olive);">日間高溫</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-size: 18px; font-weight: 600; color: var(--olive-dark);">9°C</div>
-                                <div style="font-size: 11px; color: var(--olive);">夜間低溫</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px; font-size: 11px; color: var(--olive);">
-                            🌧️ 降雨機率 16% · ☀️ 日照 11hr
-                        </div>
-                    </div>
-
-                    <!-- San Diego -->
-                    <div style="background: var(--cream); border-radius: 12px; padding: 16px;">
-                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">🌊 San Diego</div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="font-size: 24px; font-weight: 700; color: var(--charcoal);">18°C</div>
-                                <div style="font-size: 11px; color: var(--olive);">日間高溫</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-size: 18px; font-weight: 600; color: var(--olive-dark);">10°C</div>
-                                <div style="font-size: 11px; color: var(--olive);">夜間低溫</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px; font-size: 11px; color: var(--olive);">
-                            🌊 海水溫度 15°C · 涼爽舒適
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--sand);">
-                    <div style="font-size: 11px; color: var(--olive); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                        <span>📝 建議穿著：</span>
-                        <span style="background: var(--sand); padding: 2px 8px; border-radius: 10px;">薄外套</span>
-                        <span style="background: var(--sand); padding: 2px 8px; border-radius: 10px;">長袖</span>
-                        <span style="background: var(--sand); padding: 2px 8px; border-radius: 10px;">早晚加件</span>
-                    </div>
-                    <div style="font-size: 10px; color: var(--olive); opacity: 0.7; margin-top: 8px;">
-                        資料來源：<a href="https://weatherspark.com/m/1828/2/Average-Weather-in-February-in-Anaheim-California-United-States" target="_blank" style="color: var(--terracotta);">Weather Spark</a>、<a href="https://weatherspark.com/m/1816/2/Average-Weather-in-February-in-San-Diego-California-United-States" target="_blank" style="color: var(--terracotta);">San Diego Climate Data</a>
-                    </div>
-                </div>
+    <!-- Weather Widget (compact, integrated into hero area) -->
+    <div class="weather-widget" id="weatherWidget">
+        <div class="weather-current">
+            <span id="current-weather-icon">🌤️</span>
+            <div class="weather-info">
+                <span id="current-temp">--°C</span>
+                <span id="current-desc">Anaheim</span>
             </div>
         </div>
-    </section>
+        <div class="weather-forecast">
+            <div class="forecast-item"><span>🏰</span> Anaheim 20°/9°</div>
+            <div class="forecast-item"><span>🌊</span> San Diego 18°/10°</div>
+            <div class="forecast-tip">📝 建議：薄外套、長袖</div>
+        </div>
+    </div>
 
     <!-- Itinerary -->
     <section class="section" id="itinerary">
@@ -1476,12 +1595,71 @@
         </div>
     </section>
 
-    <!-- Rental Section -->
-    <section class="section" id="rental">
+    <!-- Logistics Section (Combined: Flights + Rental + Accommodation) -->
+    <section class="section" id="logistics">
         <div class="section-header">
-            <p class="section-tag">Transportation</p>
-            <h2 class="section-title">租車資訊</h2>
+            <p class="section-tag">Logistics</p>
+            <h2 class="section-title">交通住宿</h2>
         </div>
+
+        <!-- Tab Navigation -->
+        <div class="logistics-tabs">
+            <button class="tab-btn active" data-tab="flights">✈️ 航班</button>
+            <button class="tab-btn" data-tab="rental">🚗 租車</button>
+            <button class="tab-btn" data-tab="accommodation">🏠 住宿</button>
+        </div>
+
+        <!-- Flights Tab -->
+        <div class="tab-content active" id="tab-flights">
+            <div class="flight-grid">
+                <div class="flight-card fade-in">
+                    <div class="flight-label">OUTBOUND · 2026/02/06 (五)</div>
+                    <div class="flight-route">
+                        <div class="flight-point">
+                            <div class="flight-code">TPE</div>
+                            <div class="flight-time">21:25</div>
+                            <div class="flight-city">台北桃園 T2</div>
+                        </div>
+                        <div class="flight-line"></div>
+                        <div class="flight-point">
+                            <div class="flight-code">ONT</div>
+                            <div class="flight-time">16:50</div>
+                            <div class="flight-city">安大略 T1</div>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <span class="flight-tag">CI24 華航</span>
+                        <span class="flight-tag">11h 25m</span>
+                        <span class="flight-tag">B777-300ER</span>
+                    </div>
+                </div>
+                <div class="flight-card fade-in">
+                    <div class="flight-label">RETURN · 2026/02/18 (三)</div>
+                    <div class="flight-route">
+                        <div class="flight-point">
+                            <div class="flight-code">ONT</div>
+                            <div class="flight-time">22:50</div>
+                            <div class="flight-city">安大略 T2</div>
+                        </div>
+                        <div class="flight-line"></div>
+                        <div class="flight-point">
+                            <div class="flight-code">TPE</div>
+                            <div class="flight-time">05:30+1</div>
+                            <div class="flight-city">台北 (2/20)</div>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <span class="flight-tag">CI23 華航</span>
+                        <span class="flight-tag">14h 40m</span>
+                        <span class="flight-tag">B777-300ER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="booking-info">訂單: 2025-12835369 · PNR: ETOL6M</div>
+        </div>
+
+        <!-- Rental Tab -->
+        <div class="tab-content" id="tab-rental">
 
         <div style="max-width: 600px; margin: 0 auto;">
             <div class="rental-card recommended" style="text-align: center; padding: 30px;">
@@ -1534,6 +1712,47 @@
                     <a href="https://turo.com/en/reservations" target="_blank" class="rental-btn" style="margin: 0;">查看訂單 →</a>
                 </div>
             </div>
+        </div>
+        </div>
+
+        <!-- Accommodation Tab -->
+        <div class="tab-content" id="tab-accommodation">
+            <div style="display: flex; flex-direction: column; gap: 16px; max-width: 700px; margin: 0 auto;">
+                <!-- Airbnb 1 -->
+                <div class="accommodation-card">
+                    <div class="accommodation-dates">2/6 - 2/9</div>
+                    <div class="accommodation-info">
+                        <div class="accommodation-region">🏰 Disneyland 區域</div>
+                        <div class="accommodation-name">Midway City · 4 晚</div>
+                        <a href="https://maps.google.com/?q=8372+Roosevelt+Avenue+Midway+City+CA" target="_blank" class="accommodation-address">
+                            📍 8372 Roosevelt Avenue
+                        </a>
+                    </div>
+                </div>
+                <!-- Airbnb 2 -->
+                <div class="accommodation-card">
+                    <div class="accommodation-dates">2/10 - 2/12</div>
+                    <div class="accommodation-info">
+                        <div class="accommodation-region">🌊 San Diego 區域</div>
+                        <div class="accommodation-name">Rancho San Diego · 3 晚</div>
+                        <a href="https://maps.google.com/?q=5206+San+Bernardo+Terrace+San+Diego+CA" target="_blank" class="accommodation-address">
+                            📍 5206 San Bernardo Terrace
+                        </a>
+                    </div>
+                </div>
+                <!-- Airbnb 3 -->
+                <div class="accommodation-card">
+                    <div class="accommodation-dates">2/13 - 2/17</div>
+                    <div class="accommodation-info">
+                        <div class="accommodation-region">🏡 Eastvale 區域</div>
+                        <div class="accommodation-name">Ontario 機場附近 · 5 晚</div>
+                        <a href="https://maps.google.com/?q=14433+Eagle+River+Rd+Eastvale+CA" target="_blank" class="accommodation-address">
+                            📍 14433 Eagle River Rd
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 12px; color: var(--olive-dark); margin-top: 20px;">🙏 感謝妹夫精心安排住宿</p>
         </div>
     </section>
 
@@ -1752,64 +1971,6 @@
         </div>
     </section>
 
-    <!-- Flights Section -->
-    <section class="section flight-section" id="flights">
-        <div class="section-header">
-            <p class="section-tag">Transportation</p>
-            <h2 class="section-title">航班資訊</h2>
-        </div>
-
-        <div class="flight-grid">
-            <div class="flight-card fade-in">
-                <div class="flight-label">OUTBOUND · 2026/02/06 (五)</div>
-                <div class="flight-route">
-                    <div class="flight-point">
-                        <div class="flight-code">TPE</div>
-                        <div class="flight-time">21:25</div>
-                        <div class="flight-city">台北桃園 T2</div>
-                    </div>
-                    <div class="flight-line"></div>
-                    <div class="flight-point">
-                        <div class="flight-code">ONT</div>
-                        <div class="flight-time">16:50</div>
-                        <div class="flight-city">安大略 T1</div>
-                    </div>
-                </div>
-                <div class="flight-details">
-                    <span class="flight-tag">CI24 華航</span>
-                    <span class="flight-tag">11h 25m</span>
-                    <span class="flight-tag">B777-300ER</span>
-                </div>
-            </div>
-
-            <div class="flight-card fade-in">
-                <div class="flight-label">RETURN · 2026/02/18 (三)</div>
-                <div class="flight-route">
-                    <div class="flight-point">
-                        <div class="flight-code">ONT</div>
-                        <div class="flight-time">22:50</div>
-                        <div class="flight-city">安大略 T2</div>
-                    </div>
-                    <div class="flight-line"></div>
-                    <div class="flight-point">
-                        <div class="flight-code">TPE</div>
-                        <div class="flight-time">05:30+1</div>
-                        <div class="flight-city">台北 (2/20)</div>
-                    </div>
-                </div>
-                <div class="flight-details">
-                    <span class="flight-tag">CI23 華航</span>
-                    <span class="flight-tag">14h 40m</span>
-                    <span class="flight-tag">B777-300ER</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="booking-info">
-            訂單: 2025-12835369 · PNR: ETOL6M
-        </div>
-    </section>
-
     <!-- Budget Estimate Section -->
     <section class="section" id="budget">
         <div class="section-header">
@@ -1943,82 +2104,6 @@
         </div>
     </section>
 
-    <!-- Accommodation Section -->
-    <section class="section" style="background: var(--sand);">
-        <div class="section-header">
-            <p class="section-tag">Accommodation</p>
-            <h2 class="section-title">住宿資訊</h2>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 16px; max-width: 600px; margin: 0 auto;">
-            <!-- Airbnb 1: Midway City (Disney) -->
-            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                <div style="display: flex; align-items: flex-start; gap: 16px;">
-                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FF385C, #E31C5F); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                            <span style="font-size: 11px; background: #FF385C; color: white; padding: 2px 8px; border-radius: 20px; font-weight: 600;">Airbnb</span>
-                            <span style="font-size: 12px; color: var(--olive-dark);">2/6 - 2/9</span>
-                        </div>
-                        <div style="font-weight: 700; color: var(--charcoal); font-size: 16px; margin-bottom: 4px;">🏰 Disneyland 區域</div>
-                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">Midway City · 4 晚</div>
-                        <a href="https://maps.google.com/?q=8372+Roosevelt+Avenue+Midway+City+CA" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--terracotta); text-decoration: none; font-weight: 500;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            8372 Roosevelt Avenue
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Airbnb 2: San Diego -->
-            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                <div style="display: flex; align-items: flex-start; gap: 16px;">
-                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FF385C, #E31C5F); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                            <span style="font-size: 11px; background: #FF385C; color: white; padding: 2px 8px; border-radius: 20px; font-weight: 600;">Airbnb</span>
-                            <span style="font-size: 12px; color: var(--olive-dark);">2/10 - 2/12</span>
-                        </div>
-                        <div style="font-weight: 700; color: var(--charcoal); font-size: 16px; margin-bottom: 4px;">🌊 San Diego 區域</div>
-                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">Rancho San Diego · 3 晚</div>
-                        <a href="https://maps.google.com/?q=5206+San+Bernardo+Terrace+San+Diego+CA" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--terracotta); text-decoration: none; font-weight: 500;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            5206 San Bernardo Terrace
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Airbnb 3: Eastvale -->
-            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                <div style="display: flex; align-items: flex-start; gap: 16px;">
-                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FF385C, #E31C5F); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                            <span style="font-size: 11px; background: #FF385C; color: white; padding: 2px 8px; border-radius: 20px; font-weight: 600;">Airbnb</span>
-                            <span style="font-size: 12px; color: var(--olive-dark);">2/13 - 2/17</span>
-                        </div>
-                        <div style="font-weight: 700; color: var(--charcoal); font-size: 16px; margin-bottom: 4px;">🏡 Eastvale 區域</div>
-                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">Ontario 機場附近 · 5 晚</div>
-                        <a href="https://maps.google.com/?q=14433+Eagle+River+Rd+Eastvale+CA" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--terracotta); text-decoration: none; font-weight: 500;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            14433 Eagle River Rd
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <p style="text-align: center; font-size: 12px; color: var(--olive-dark); margin-top: 20px; opacity: 0.8;">
-            🙏 感謝妹夫精心安排住宿
-        </p>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -2311,6 +2396,29 @@
                 });
             });
         }
+
+        // ===== LOGISTICS TABS =====
+        function initLogisticsTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetTab = btn.dataset.tab;
+
+                    // Remove active from all
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active to clicked
+                    btn.classList.add('active');
+                    document.getElementById('tab-' + targetTab)?.classList.add('active');
+                });
+            });
+        }
+
+        // Initialize tabs on load
+        document.addEventListener('DOMContentLoaded', initLogisticsTabs);
 
         // ===== MAP INITIALIZATION =====
         let map = null;
