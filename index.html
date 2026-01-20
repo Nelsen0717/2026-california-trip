@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>California 2026 | 陳家 & 盧家的加州之旅</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#C4A484">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CA2026">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -260,6 +269,50 @@
             50% { transform: translateX(-50%) translateY(8px); }
         }
 
+        /* ===== COUNTDOWN TIMER ===== */
+        .countdown-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .countdown-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .countdown-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px 16px;
+            min-width: 70px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .countdown-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+        .countdown-unit {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+        @media (max-width: 480px) {
+            .countdown-item { padding: 10px 12px; min-width: 60px; }
+            .countdown-num { font-size: 1.5rem; }
+        }
+
         /* ===== SECTIONS ===== */
         .section {
             padding: 80px 20px;
@@ -485,6 +538,21 @@
         .spot-link:hover {
             background: var(--terracotta);
             color: white;
+        }
+
+        .spot-link.nav-btn {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            font-weight: 500;
+        }
+
+        .spot-link.nav-btn:first-of-type {
+            background: linear-gradient(135deg, #333, #555);
+        }
+
+        .spot-link.nav-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .day-tips {
@@ -1248,10 +1316,120 @@
                     <div class="stat-label">CITIES</div>
                 </div>
             </div>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-container">
+                <div class="countdown-label">✈️ 距離出發還有</div>
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-item">
+                        <div class="countdown-num" id="countdown-days">--</div>
+                        <div class="countdown-unit">天</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-num" id="countdown-hours">--</div>
+                        <div class="countdown-unit">時</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-num" id="countdown-mins">--</div>
+                        <div class="countdown-unit">分</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-num" id="countdown-secs">--</div>
+                        <div class="countdown-unit">秒</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="hero-scroll">
             向下滑動探索
             <span>↓</span>
+        </div>
+    </section>
+
+    <!-- Weather Section -->
+    <section class="section" id="weather" style="padding-bottom: 40px;">
+        <div class="section-header">
+            <p class="section-tag">Weather</p>
+            <h2 class="section-title">天氣預報</h2>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto;">
+            <!-- Current Weather (Live API) -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 24px; margin-bottom: 20px; color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <div style="font-size: 12px; opacity: 0.8; margin-bottom: 4px;">📍 目前 Anaheim 天氣（即時）</div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span id="current-weather-icon" style="font-size: 48px;">🌤️</span>
+                            <div>
+                                <div style="font-size: 36px; font-weight: 700;" id="current-temp">--°C</div>
+                                <div style="font-size: 13px; opacity: 0.9;" id="current-desc">載入中...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 12px; opacity: 0.7;">資料來源</div>
+                        <a href="https://open-meteo.com/" target="_blank" style="color: white; font-size: 11px; opacity: 0.8;">Open-Meteo API</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- February Climate Reference -->
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <div style="font-weight: 600; color: var(--charcoal); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                    <span>📊</span> 2月氣候參考（歷史平均）
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                    <!-- Anaheim/Disneyland -->
+                    <div style="background: var(--cream); border-radius: 12px; padding: 16px;">
+                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">🏰 Anaheim (迪士尼)</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-size: 24px; font-weight: 700; color: var(--charcoal);">20°C</div>
+                                <div style="font-size: 11px; color: var(--olive);">日間高溫</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 18px; font-weight: 600; color: var(--olive-dark);">9°C</div>
+                                <div style="font-size: 11px; color: var(--olive);">夜間低溫</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 11px; color: var(--olive);">
+                            🌧️ 降雨機率 16% · ☀️ 日照 11hr
+                        </div>
+                    </div>
+
+                    <!-- San Diego -->
+                    <div style="background: var(--cream); border-radius: 12px; padding: 16px;">
+                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">🌊 San Diego</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-size: 24px; font-weight: 700; color: var(--charcoal);">18°C</div>
+                                <div style="font-size: 11px; color: var(--olive);">日間高溫</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 18px; font-weight: 600; color: var(--olive-dark);">10°C</div>
+                                <div style="font-size: 11px; color: var(--olive);">夜間低溫</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 11px; color: var(--olive);">
+                            🌊 海水溫度 15°C · 涼爽舒適
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--sand);">
+                    <div style="font-size: 11px; color: var(--olive); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                        <span>📝 建議穿著：</span>
+                        <span style="background: var(--sand); padding: 2px 8px; border-radius: 10px;">薄外套</span>
+                        <span style="background: var(--sand); padding: 2px 8px; border-radius: 10px;">長袖</span>
+                        <span style="background: var(--sand); padding: 2px 8px; border-radius: 10px;">早晚加件</span>
+                    </div>
+                    <div style="font-size: 10px; color: var(--olive); opacity: 0.7; margin-top: 8px;">
+                        資料來源：<a href="https://weatherspark.com/m/1828/2/Average-Weather-in-February-in-Anaheim-California-United-States" target="_blank" style="color: var(--terracotta);">Weather Spark</a>、<a href="https://weatherspark.com/m/1816/2/Average-Weather-in-February-in-San-Diego-California-United-States" target="_blank" style="color: var(--terracotta);">San Diego Climate Data</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1632,17 +1810,214 @@
         </div>
     </section>
 
-    <!-- Accommodation Placeholder -->
+    <!-- Budget Estimate Section -->
+    <section class="section" id="budget">
+        <div class="section-header">
+            <p class="section-tag">Budget</p>
+            <h2 class="section-title">費用估算</h2>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto;">
+            <!-- Ticket Costs -->
+            <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 20px;">
+                <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 16px; font-size: 1.1rem;">🎫 門票費用（2026 官方價格）</div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <!-- Disneyland -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--charcoal);">🏰 Disneyland (1-Day Park Hopper)</div>
+                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $174 · 兒童(3-9) $166 · Tier 0 價格</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$1,796</div>
+                            <div style="font-size: 11px; color: var(--olive);">11人 (含1免費)</div>
+                        </div>
+                    </div>
+
+                    <!-- San Diego Zoo -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--charcoal);">🦁 San Diego Zoo</div>
+                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $70 · 兒童(3-11) $60 · 停車 $16</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$696</div>
+                            <div style="font-size: 11px; color: var(--olive);">11人 (含1免費)</div>
+                        </div>
+                    </div>
+
+                    <!-- SeaWorld -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--charcoal);">🐬 SeaWorld San Diego</div>
+                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $66 · 兒童(3-9) $66 · FunEx 優惠價</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$660</div>
+                            <div style="font-size: 11px; color: var(--olive);">11人 (含1免費)</div>
+                        </div>
+                    </div>
+
+                    <!-- Palm Springs Tramway -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--charcoal);">🚡 Palm Springs Aerial Tramway</div>
+                            <div style="font-size: 12px; color: var(--olive-dark);">成人 $30.95 · 兒童(3-10) $18.95</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$292</div>
+                            <div style="font-size: 11px; color: var(--olive);">11人</div>
+                        </div>
+                    </div>
+
+                    <!-- Lakers -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--cream); border-radius: 10px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--charcoal);">🏀 Lakers vs Thunder (4人)</div>
+                            <div style="font-size: 12px; color: var(--olive-dark);">票價視座位而定</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--terracotta-dark);">~$400</div>
+                            <div style="font-size: 11px; color: var(--olive);">估算</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 2px solid var(--sand); display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 600; color: var(--charcoal);">門票小計</div>
+                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--terracotta-dark);">~$3,844 USD</div>
+                </div>
+            </div>
+
+            <!-- Other Costs -->
+            <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 16px; font-size: 1.1rem;">💰 其他預估費用</div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
+                        <div style="font-size: 24px;">🚗</div>
+                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">租車 (Turo)</div>
+                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">~$1,500</div>
+                        <div style="font-size: 11px; color: var(--olive);">13天 Tesla Model Y</div>
+                    </div>
+                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
+                        <div style="font-size: 24px;">⛽</div>
+                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">充電/油費</div>
+                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">~$150</div>
+                        <div style="font-size: 11px; color: var(--olive);">Tesla Supercharger</div>
+                    </div>
+                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
+                        <div style="font-size: 24px;">🍽️</div>
+                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">餐飲</div>
+                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">~$3,000</div>
+                        <div style="font-size: 11px; color: var(--olive);">11人 x 13天</div>
+                    </div>
+                    <div style="background: var(--cream); border-radius: 10px; padding: 14px; text-align: center;">
+                        <div style="font-size: 24px;">🛍️</div>
+                        <div style="font-weight: 600; color: var(--charcoal); margin: 4px 0;">購物</div>
+                        <div style="font-size: 18px; font-weight: 700; color: var(--terracotta-dark);">彈性</div>
+                        <div style="font-size: 11px; color: var(--olive);">Outlet 血拼</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 16px; background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark)); border-radius: 12px; color: white;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.1rem;">預估總費用</div>
+                            <div style="font-size: 12px; opacity: 0.9;">不含機票、住宿、購物</div>
+                        </div>
+                        <div style="font-size: 1.8rem; font-weight: 700;">~$8,500 USD</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 16px; font-size: 11px; color: var(--olive); text-align: center;">
+                💡 價格資料來源：
+                <a href="https://disneyland.disney.go.com/" target="_blank" style="color: var(--terracotta);">Disneyland</a>、
+                <a href="https://zoo.sandiegozoo.org/tickets" target="_blank" style="color: var(--terracotta);">San Diego Zoo</a>、
+                <a href="https://seaworld.com/san-diego/tickets/" target="_blank" style="color: var(--terracotta);">SeaWorld</a>、
+                <a href="https://www.pstramway.com/" target="_blank" style="color: var(--terracotta);">Palm Springs Tramway</a>
+                · 更新日期 2026-01
+            </div>
+        </div>
+    </section>
+
+    <!-- Accommodation Section -->
     <section class="section" style="background: var(--sand);">
         <div class="section-header">
             <p class="section-tag">Accommodation</p>
             <h2 class="section-title">住宿資訊</h2>
         </div>
-        <div class="placeholder-card">
-            <div class="placeholder-icon">🏠</div>
-            <p class="placeholder-text">住宿資訊待更新</p>
-            <p class="placeholder-sub">妹夫規劃中，稍後補上</p>
+
+        <div style="display: flex; flex-direction: column; gap: 16px; max-width: 600px; margin: 0 auto;">
+            <!-- Airbnb 1: Midway City (Disney) -->
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <div style="display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FF385C, #E31C5F); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="font-size: 11px; background: #FF385C; color: white; padding: 2px 8px; border-radius: 20px; font-weight: 600;">Airbnb</span>
+                            <span style="font-size: 12px; color: var(--olive-dark);">2/6 - 2/9</span>
+                        </div>
+                        <div style="font-weight: 700; color: var(--charcoal); font-size: 16px; margin-bottom: 4px;">🏰 Disneyland 區域</div>
+                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">Midway City · 4 晚</div>
+                        <a href="https://maps.google.com/?q=8372+Roosevelt+Avenue+Midway+City+CA" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--terracotta); text-decoration: none; font-weight: 500;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            8372 Roosevelt Avenue
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Airbnb 2: San Diego -->
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <div style="display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FF385C, #E31C5F); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="font-size: 11px; background: #FF385C; color: white; padding: 2px 8px; border-radius: 20px; font-weight: 600;">Airbnb</span>
+                            <span style="font-size: 12px; color: var(--olive-dark);">2/10 - 2/12</span>
+                        </div>
+                        <div style="font-weight: 700; color: var(--charcoal); font-size: 16px; margin-bottom: 4px;">🌊 San Diego 區域</div>
+                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">Rancho San Diego · 3 晚</div>
+                        <a href="https://maps.google.com/?q=5206+San+Bernardo+Terrace+San+Diego+CA" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--terracotta); text-decoration: none; font-weight: 500;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            5206 San Bernardo Terrace
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Airbnb 3: Eastvale -->
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <div style="display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FF385C, #E31C5F); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="font-size: 11px; background: #FF385C; color: white; padding: 2px 8px; border-radius: 20px; font-weight: 600;">Airbnb</span>
+                            <span style="font-size: 12px; color: var(--olive-dark);">2/13 - 2/17</span>
+                        </div>
+                        <div style="font-weight: 700; color: var(--charcoal); font-size: 16px; margin-bottom: 4px;">🏡 Eastvale 區域</div>
+                        <div style="font-size: 13px; color: var(--olive-dark); margin-bottom: 8px;">Ontario 機場附近 · 5 晚</div>
+                        <a href="https://maps.google.com/?q=14433+Eagle+River+Rd+Eastvale+CA" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--terracotta); text-decoration: none; font-weight: 500;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            14433 Eagle River Rd
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <p style="text-align: center; font-size: 12px; color: var(--olive-dark); margin-top: 20px; opacity: 0.8;">
+            🙏 感謝妹夫精心安排住宿
+        </p>
     </section>
 
     <!-- Footer -->
@@ -1653,7 +2028,7 @@
             <a href="https://www.notion.so/2026-California-Family-Trip-2eda9189f07d813f8de5e52df86ad048" target="_blank">📝 Notion</a>
             <a href="trip-data.json" target="_blank">📊 JSON</a>
         </div>
-        <p class="footer-note">更新: 2026-01-19</p>
+        <p class="footer-note">更新: 2026-01-20</p>
     </footer>
 
     <!-- Scripts -->
@@ -1670,7 +2045,7 @@
                 spots: [
                     { time: "16:50", name: "Ontario International Airport", icon: "✈️", desc: "抵達安大略機場", lat: 34.056, lng: -117.601, maps: "https://maps.google.com/?q=Ontario+International+Airport" },
                     { time: "18:00", name: "取車 & 通勤", icon: "🚗", desc: "Turo 取車 Tesla Model Y (Daniel Cardona)", lat: 34.056, lng: -117.601 },
-                    { time: "19:30", name: "In-N-Out Burger", icon: "🍔", desc: "加州經典漢堡 · Animal Style 必點！", lat: 33.7519, lng: -117.9952, maps: "https://maps.google.com/?q=In-N-Out+Burger+Westminster", type: "restaurant", mustVisit: true },
+                    { time: "19:30", name: "In-N-Out Burger", icon: "🍔", desc: "加州經典漢堡 · Animal Style 必點！", lat: 33.7519, lng: -117.9952, maps: "https://maps.google.com/?q=In-N-Out+Burger+Westminster", type: "restaurant", mustVisit: true, yelp: { rating: 4.5, reviews: 362, url: "https://www.yelp.com/biz/in-n-out-burger-westminster" } },
                     { time: "21:00", name: "Airbnb Check-in", icon: "🏠", desc: "Midway City 住宿 · 8372 Roosevelt Avenue", lat: 33.7517, lng: -117.9895 }
                 ],
                 tips: "第一餐就吃 In-N-Out！別忘了點 Animal Style 薯條"
@@ -1838,11 +2213,11 @@
                 spots: [
                     { time: "10:00", name: "睡到自然醒", icon: "☕", desc: "新年快樂！悠閒享用早餐", lat: 33.9636, lng: -117.5631 },
                     { time: "12:00", name: "Victoria Gardens", icon: "🛍️", desc: "戶外購物中心 · 適合全家逛街散步 · 有兒童遊樂區", lat: 34.1064, lng: -117.5267, maps: "https://maps.google.com/?q=Victoria+Gardens+Rancho+Cucamonga", website: "https://victoriagardens.com" },
-                    { time: "13:30", name: "The Cheesecake Factory", icon: "🍽️", desc: "美式餐廳 · 兒童菜單豐富 · 起司蛋糕必點", lat: 34.1064, lng: -117.5267, maps: "https://maps.google.com/?q=Cheesecake+Factory+Victoria+Gardens", type: "restaurant" },
-                    { time: "15:30", name: "Scandia Amusement Park", icon: "🎢", desc: "家庭遊樂園 · 迷你高爾夫 · 碰碰車 · 適合5歲小朋友", lat: 34.1009, lng: -117.5876, maps: "https://maps.google.com/?q=Scandia+Ontario", website: "https://www.scandiafun.com" },
-                    { time: "18:00", name: "Din Tai Fung", icon: "🥟", desc: "鼎泰豐小籠包 · 長輩和小朋友都愛 · Arcadia 店", lat: 34.1320, lng: -118.0298, maps: "https://maps.google.com/?q=Din+Tai+Fung+Arcadia", website: "https://dintaifungusa.com", type: "restaurant" }
+                    { time: "13:30", name: "The Cheesecake Factory", icon: "🍽️", desc: "美式餐廳 · 兒童菜單豐富 · 起司蛋糕必點", lat: 34.1064, lng: -117.5267, maps: "https://maps.google.com/?q=Cheesecake+Factory+Victoria+Gardens", type: "restaurant", yelp: { rating: 3.0, reviews: 2152, url: "https://www.yelp.com/biz/the-cheesecake-factory-rancho-cucamonga-4" } },
+                    { time: "15:30", name: "Castle Park", icon: "🎢", desc: "家庭遊樂園 · 迷你高爾夫 · 27種遊樂設施 · 適合5歲小朋友", lat: 33.9628, lng: -117.4068, maps: "https://maps.google.com/?q=Castle+Park+Riverside", website: "https://castlepark.com", yelp: { rating: 3.5, reviews: 853, url: "https://www.yelp.com/biz/castle-park-riverside" } },
+                    { time: "18:00", name: "Din Tai Fung", icon: "🥟", desc: "鼎泰豐小籠包 · 長輩和小朋友都愛 · Arcadia 店", lat: 34.1320, lng: -118.0298, maps: "https://maps.google.com/?q=Din+Tai+Fung+Arcadia", website: "https://dintaifungusa.com", type: "restaurant", yelp: { rating: 4.0, reviews: 6424, url: "https://www.yelp.com/biz/din-tai-fung-arcadia-3" } }
                 ],
-                tips: "💡 爾森管家建議：初一適合輕鬆行程，Victoria Gardens 有戶外空間讓小朋友跑跳，Scandia 是本地人氣親子樂園"
+                tips: "💡 爾森管家建議：初一適合輕鬆行程，Victoria Gardens 有戶外空間讓小朋友跑跳，Castle Park 是 Riverside 經典家庭樂園（1976年開幕）"
             },
             {
                 day: 13,
@@ -1889,7 +2264,21 @@
                                             ${spot.mustVisit ? '<span style="color: var(--terracotta);">★</span>' : ''}
                                         </div>
                                         <div class="spot-desc">${spot.desc}</div>
+                                        ${spot.yelp ? `
+                                        <div class="yelp-rating" style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                                            <a href="${spot.yelp.url}" target="_blank" style="display: flex; align-items: center; gap: 4px; text-decoration: none; font-size: 11px;">
+                                                <span style="color: #d32323; font-weight: 600;">yelp</span>
+                                                <span style="color: #f0b800;">${'★'.repeat(Math.floor(spot.yelp.rating))}${spot.yelp.rating % 1 ? '½' : ''}</span>
+                                                <span style="color: var(--olive-dark);">${spot.yelp.rating}</span>
+                                                <span style="color: var(--olive); font-size: 10px;">(${spot.yelp.reviews.toLocaleString()}則)</span>
+                                            </a>
+                                        </div>
+                                        ` : ''}
                                         <div class="spot-links">
+                                            ${spot.lat && spot.lng ? `
+                                                <a href="https://maps.apple.com/?daddr=${spot.lat},${spot.lng}&dirflg=d" target="_blank" class="spot-link nav-btn" title="Apple Maps 導航">🍎 導航</a>
+                                                <a href="https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}&travelmode=driving" target="_blank" class="spot-link nav-btn" title="Google Maps 導航">🗺️ 導航</a>
+                                            ` : ''}
                                             ${spot.maps ? `<a href="${spot.maps}" target="_blank" class="spot-link">📍 地圖</a>` : ''}
                                             ${spot.website ? `<a href="${spot.website}" target="_blank" class="spot-link">🔗 官網</a>` : ''}
                                         </div>
@@ -2004,7 +2393,8 @@
                     <div class="popup-title">${spot.icon} ${spot.name}</div>
                     <div class="popup-desc">${spot.desc}</div>
                     <div class="popup-links">
-                        ${spot.maps ? `<a href="${spot.maps}" target="_blank" class="popup-link">📍 Google Maps</a>` : ''}
+                        <a href="https://maps.apple.com/?daddr=${spot.lat},${spot.lng}&dirflg=d" target="_blank" class="popup-link" style="background: #333;">🍎 Apple</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}&travelmode=driving" target="_blank" class="popup-link" style="background: #4285F4;">🗺️ Google</a>
                         ${spot.website ? `<a href="${spot.website}" target="_blank" class="popup-link">🔗 官網</a>` : ''}
                     </div>
                 `;
@@ -2160,6 +2550,96 @@
             }
         `;
         document.head.appendChild(style);
+
+        // ===== COUNTDOWN TIMER =====
+        function updateCountdown() {
+            // Trip start: Feb 6, 2026 at 00:01 Taiwan time (Feb 5, 2026 16:01 UTC)
+            const tripStart = new Date('2026-02-06T00:01:00+08:00');
+            const now = new Date();
+            const diff = tripStart - now;
+
+            if (diff <= 0) {
+                document.querySelector('.countdown-label').textContent = '🎉 旅程進行中！';
+                document.getElementById('countdown-days').textContent = '🌴';
+                document.getElementById('countdown-hours').textContent = '🏖️';
+                document.getElementById('countdown-mins').textContent = '🎢';
+                document.getElementById('countdown-secs').textContent = '✨';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown-days').textContent = days;
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-mins').textContent = mins.toString().padStart(2, '0');
+            document.getElementById('countdown-secs').textContent = secs.toString().padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ===== LIVE WEATHER API (Open-Meteo) =====
+        async function fetchCurrentWeather() {
+            try {
+                // Anaheim coordinates: 33.8366, -117.9143
+                const response = await fetch(
+                    'https://api.open-meteo.com/v1/forecast?latitude=33.8366&longitude=-117.9143&current=temperature_2m,weather_code,wind_speed_10m&timezone=America/Los_Angeles'
+                );
+                const data = await response.json();
+
+                const temp = Math.round(data.current.temperature_2m);
+                const weatherCode = data.current.weather_code;
+                const windSpeed = Math.round(data.current.wind_speed_10m);
+
+                // Weather code to emoji and description mapping
+                const weatherMap = {
+                    0: { icon: '☀️', desc: '晴朗' },
+                    1: { icon: '🌤️', desc: '大致晴朗' },
+                    2: { icon: '⛅', desc: '局部多雲' },
+                    3: { icon: '☁️', desc: '多雲' },
+                    45: { icon: '🌫️', desc: '有霧' },
+                    48: { icon: '🌫️', desc: '霧凇' },
+                    51: { icon: '🌧️', desc: '小雨' },
+                    53: { icon: '🌧️', desc: '中雨' },
+                    55: { icon: '🌧️', desc: '大雨' },
+                    61: { icon: '🌧️', desc: '小陣雨' },
+                    63: { icon: '🌧️', desc: '陣雨' },
+                    65: { icon: '🌧️', desc: '大陣雨' },
+                    80: { icon: '🌦️', desc: '陣雨' },
+                    95: { icon: '⛈️', desc: '雷陣雨' },
+                };
+
+                const weather = weatherMap[weatherCode] || { icon: '🌡️', desc: '天氣資料' };
+
+                document.getElementById('current-weather-icon').textContent = weather.icon;
+                document.getElementById('current-temp').textContent = temp + '°C';
+                document.getElementById('current-desc').textContent = weather.desc + ' · 風速 ' + windSpeed + ' km/h';
+
+            } catch (error) {
+                console.log('Weather API error:', error);
+                document.getElementById('current-desc').textContent = '無法載入即時天氣';
+            }
+        }
+
+        fetchCurrentWeather();
+        // Refresh weather every 30 minutes
+        setInterval(fetchCurrentWeather, 30 * 60 * 1000);
+
+        // ===== PWA SERVICE WORKER REGISTRATION =====
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('SW registration failed:', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
